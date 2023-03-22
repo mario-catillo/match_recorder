@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:match_recorder/main_event_buttons.dart';
+import 'package:match_recorder/models/app_state.dart';
+import 'package:match_recorder/models/stopwatch_state.dart';
+import 'package:match_recorder/team_page.dart';
+import 'package:match_recorder/widgets/events_list.dart';
+import 'package:match_recorder/widgets/match_timer.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<AppState>(create: (_) => AppState()),
+      ChangeNotifierProvider(create: (_) => StopwatchState())
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,19 +61,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -74,6 +74,36 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(child: Text('Match Recorder')),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TeamPage(
+                                  team: context.read<AppState>().team1,
+                                ))),
+                    child: Text("Team 1")),
+                SizedBox(width: 20),
+                ElevatedButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TeamPage(
+                                  team: context.read<AppState>().team2,
+                                ))),
+                    child: Text("Team 2")),
+              ],
+            ),
+            Expanded(child: EventsList()),
+          ],
+        ),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -95,21 +125,24 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Expanded(child: MainEventButtons()),
+            Consumer<StopwatchState>(builder: (ctx, stopwatchState, child) {
+              return Row(
+                children: [
+                  ElevatedButton(
+                      onPressed: () => stopwatchState.isRunning()
+                          ? context.read<StopwatchState>().stop()
+                          : context.read<StopwatchState>().start(),
+                      child: stopwatchState.isRunning()
+                          ? const Text('Stop')
+                          : const Text('Start')),
+                  const MatchTimer()
+                ],
+              );
+            }),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
