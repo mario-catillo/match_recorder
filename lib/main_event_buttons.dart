@@ -4,6 +4,7 @@ import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/base_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/tackle_event.dart';
+import 'package:match_recorder/models/try_event.dart';
 import 'package:provider/provider.dart';
 
 class MainEventButtons extends StatelessWidget {
@@ -12,8 +13,12 @@ class MainEventButtons extends StatelessWidget {
   });
 
   void _onEventPressed(BuildContext context, BaseEvent event) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const EventDescriptionView()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EventDescriptionView(
+                  event: event,
+                )));
   }
 
   @override
@@ -29,7 +34,8 @@ class MainEventButtons extends StatelessWidget {
           child: const Text('Tackle'),
         ),
         MaterialButton(
-          onPressed: () => null,
+          onPressed: () => _onEventPressed(context,
+              TryEvent(time: context.read<StopwatchState>().currentTime.value)),
           child: const Text('Try'),
         ),
         MaterialButton(

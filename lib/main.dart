@@ -86,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TeamPage(
-                                  team: context.read<AppState>().team1,
+                            builder: (context) => const TeamPage(
+                                  teamType: TeamType.team1,
                                 ))),
                     child: Text("Team 1")),
                 SizedBox(width: 20),
@@ -95,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TeamPage(
-                                  team: context.read<AppState>().team2,
+                            builder: (context) => const TeamPage(
+                                  teamType: TeamType.team2,
                                 ))),
                     child: Text("Team 2")),
               ],

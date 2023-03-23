@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:match_recorder/models/app_state.dart';
+import 'package:match_recorder/models/base_event.dart';
+import 'package:match_recorder/team_page.dart';
 import 'package:provider/provider.dart';
 
 class EventsList extends StatelessWidget {
@@ -9,7 +11,14 @@ class EventsList extends StatelessWidget {
     return ListView.builder(
       itemCount: appState.events.length,
       itemBuilder: (context, index) {
-        return Text(appState.events[index].getEventName());
+        BaseEvent event = appState.events[index];
+        return Container(
+          color: event.teamType == TeamType.team1 ? Colors.green : Colors.red,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text(event.getEventName()), Text(event.time)],
+          ),
+        );
       },
     );
   }

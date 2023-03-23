@@ -4,12 +4,15 @@ import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/team.dart';
 import 'package:provider/provider.dart';
 
+enum TeamType { team1, team2 }
+
 class TeamPage extends StatelessWidget {
-  final Team team;
-  const TeamPage({Key? key, required this.team}) : super(key: key);
+  final TeamType teamType;
+  const TeamPage({Key? key, required this.teamType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final team = context.read<AppState>().getTeam(teamType);
     return Scaffold(
       appBar: AppBar(
         title: Text(team.name),
@@ -17,7 +20,11 @@ class TeamPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              showDialog(context: context, builder: (ctx) => AddPlayerDialog());
+              showDialog(
+                  context: context,
+                  builder: (ctx) => AddPlayerDialog(
+                        teamType: teamType,
+                      ));
             },
           ),
         ],
@@ -36,7 +43,8 @@ class TeamPage extends StatelessWidget {
 }
 
 class AddPlayerDialog extends StatefulWidget {
-  const AddPlayerDialog({Key? key}) : super(key: key);
+  final TeamType teamType;
+  const AddPlayerDialog({Key? key, required this.teamType}) : super(key: key);
 
   @override
   _AddPlayerDialogState createState() => _AddPlayerDialogState();
@@ -79,7 +87,8 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
         ),
         TextButton(
           onPressed: () {
-            Provider.of<AppState>(context, listen: false).addPlayer(player);
+            Provider.of<AppState>(context, listen: false)
+                .addPlayer(player, widget.teamType);
             Navigator.of(context).pop();
           },
           child: const Text('Add'),
