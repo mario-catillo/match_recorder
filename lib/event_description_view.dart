@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/base_event.dart';
 import 'package:match_recorder/models/player.dart';
+import 'package:match_recorder/models/scrum_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/players_select.dart';
 import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
@@ -17,8 +18,6 @@ class EventDescriptionView extends StatefulWidget {
 }
 
 class _EventDescriptionViewState extends State<EventDescriptionView> {
-  TeamType selectedTeam = TeamType.team1;
-
   List<Player> selectedPlayers = [];
   late BaseEvent event;
   @override
@@ -29,7 +28,6 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
 
   void _saveEvent() {
     event.players = selectedPlayers;
-    event.teamType = selectedTeam;
     context.read<AppState>().pushEvent(event);
     Navigator.pop(context);
   }
@@ -51,18 +49,39 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
             onValueChanged: (TeamType? team) {
               if (team != null) {
                 setState(() {
-                  selectedTeam = team;
+                  event.teamType = team;
                 });
               }
             },
-            groupValue: selectedTeam,
+            groupValue: event.teamType,
           ),
           Expanded(
               child: PlayersSelect(
-            teamType: selectedTeam,
+            teamType: event.teamType,
             onPlayersChanged: (List<Player> players) =>
                 selectedPlayers = players,
           )),
+          if (event is ScrumEvent)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text("Team vincente:"),
+                CupertinoSlidingSegmentedControl<TeamType>(
+                  children: const {
+                    TeamType.team1: Text('Team 1'),
+                    TeamType.team2: Text('Team 2'),
+                  },
+                  onValueChanged: (TeamType? team) {
+                    if (team != null) {
+                      setState(() {
+                        (event as ScrumEvent).winnerTeam = team;
+                      });
+                    }
+                  },
+                  groupValue: (event as ScrumEvent).winnerTeam,
+                ),
+              ],
+            ),
           LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) => SizedBox(
                 width: constraints.maxWidth,

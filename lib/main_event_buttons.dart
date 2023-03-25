@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:match_recorder/event_description_view.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/base_event.dart';
+import 'package:match_recorder/models/scrum_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/tackle_event.dart';
 import 'package:match_recorder/models/try_event.dart';
+import 'package:match_recorder/team_page.dart';
 import 'package:provider/provider.dart';
 
 class MainEventButtons extends StatelessWidget {
@@ -49,6 +51,14 @@ class MainEventButtons extends StatelessWidget {
         MaterialButton(
           onPressed: () => null,
           child: const Text('Drop Goal'),
+        ),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              ScrumEvent(
+                  time: context.read<StopwatchState>().currentTime.value,
+                  winnerTeam: TeamType.team1)),
+          child: const Text('Scrum'),
         ),
       ],
     );
