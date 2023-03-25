@@ -128,15 +128,20 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(child: MainEventButtons()),
             Consumer<StopwatchState>(builder: (ctx, stopwatchState, child) {
               return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
+                  IconButton(
                       onPressed: () => stopwatchState.isRunning()
                           ? context.read<StopwatchState>().stop()
                           : context.read<StopwatchState>().start(),
-                      child: stopwatchState.isRunning()
-                          ? const Text('Stop')
-                          : const Text('Start')),
-                  const MatchTimer()
+                      icon: stopwatchState.isRunning()
+                          ? const Icon(Icons.pause)
+                          : const Icon(Icons.play_arrow)),
+                  const MatchTimer(),
+                  if (stopwatchState.currentTime.value != '00:00:00')
+                    IconButton(
+                        onPressed: () => stopwatchState.reset(),
+                        icon: const Icon(Icons.refresh)),
                 ],
               );
             }),

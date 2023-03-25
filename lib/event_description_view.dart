@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/base_event.dart';
 import 'package:match_recorder/models/player.dart';
-import 'package:match_recorder/models/stopwatch_state.dart';
-import 'package:match_recorder/models/tackle_event.dart';
-import 'package:match_recorder/models/team.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/players_select.dart';
+import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
 import 'package:provider/provider.dart';
 
 class EventDescriptionView extends StatefulWidget {
@@ -65,6 +63,17 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
             onPlayersChanged: (List<Player> players) =>
                 selectedPlayers = players,
           )),
+          LayoutBuilder(
+            builder: (BuildContext ctx, BoxConstraints constraints) => SizedBox(
+                width: constraints.maxWidth,
+                height: constraints.maxWidth * 0.55,
+                child: RugbyField(
+                  onPositionClicked: (Offset offset) => {
+                    event.fieldPosition = offset,
+                  },
+                  position: event.fieldPosition,
+                )),
+          ),
           ElevatedButton(
               onPressed: _saveEvent, child: const Text("Salva evento"))
         ],

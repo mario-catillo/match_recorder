@@ -12,7 +12,12 @@ class AppState with ChangeNotifier {
   List<BaseEvent> events = [];
 
   void pushEvent(BaseEvent event) {
-    events.add(event);
+    int index = events.indexWhere((element) => element.uuid == event.uuid);
+    if (index != -1) {
+      events[index] = event;
+    } else {
+      events.add(event);
+    }
     notifyListeners();
   }
 
