@@ -5,6 +5,7 @@ import 'package:match_recorder/models/base_event.dart';
 import 'package:match_recorder/models/scrum_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/tackle_event.dart';
+import 'package:match_recorder/models/lineout_event.dart';
 import 'package:match_recorder/models/try_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class MainEventButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      crossAxisCount: 4,
+      crossAxisCount: 6,
       children: [
         MaterialButton(
           onPressed: () => _onEventPressed(
@@ -42,7 +43,46 @@ class MainEventButtons extends StatelessWidget {
         ),
         MaterialButton(
           onPressed: () => null,
-          child: const Text('Conversion'),
+          child: const Text('Break'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Pass'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Ruck'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Mised Tackle'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Maul'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Kick'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Kick Off'),
+        ),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              LineoutEvent("5",
+                  time: context.read<StopwatchState>().currentTime.value)),
+          child: const Text('Lineout'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Scrum'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Free kick'),
         ),
         MaterialButton(
           onPressed: () => null,
@@ -50,7 +90,11 @@ class MainEventButtons extends StatelessWidget {
         ),
         MaterialButton(
           onPressed: () => null,
-          child: const Text('Drop Goal'),
+          child: const Text('Goal kick'),
+        ),
+        MaterialButton(
+          onPressed: () => null,
+          child: const Text('Points'),
         ),
         MaterialButton(
           onPressed: () => _onEventPressed(

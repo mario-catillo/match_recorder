@@ -6,3 +6,4 @@ class TackleEvent extends BaseEvent {
   @override
   String getEventName() => 'Tackle';
 }
+//Time;Team;Player;Shoulder;Progress
