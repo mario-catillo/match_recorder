@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:match_recorder/models/base_event.dart';
+import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/team.dart';
 import 'package:match_recorder/team_page.dart';
@@ -18,6 +18,11 @@ class AppState with ChangeNotifier {
     } else {
       events.add(event);
     }
+    notifyListeners();
+  }
+
+  void dropEvent(BaseEvent event) {
+    events.removeWhere((element) => element.uuid == event.uuid);
     notifyListeners();
   }
 

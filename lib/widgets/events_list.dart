@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:match_recorder/event_description_view.dart';
 import 'package:match_recorder/models/app_state.dart';
-import 'package:match_recorder/models/base_event.dart';
+import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class EventsList extends StatelessWidget {
     return ListView.builder(
       itemCount: appState.events.length,
       itemBuilder: (context, index) {
-        BaseEvent event = appState.events[index];
+        BaseEvent event = appState.events.reversed.toList()[index];
         return Container(
           color: event.teamType == TeamType.team1 ? Colors.green : Colors.red,
           child: Padding(
@@ -38,7 +38,9 @@ class EventsList extends StatelessWidget {
                           size: 15,
                         )),
                     IconButton(
-                        onPressed: () => {},
+                        onPressed: () => {
+                              appState.dropEvent(event),
+                            },
                         icon: const Icon(
                           Icons.delete,
                           size: 15,
