@@ -1,4 +1,4 @@
-enum Descriptors { movementProgression, infraction, speed }
+enum Descriptors { movementProgression, infraction, speed, kickType }
 
 enum MovementProgression { positive, negative, neutral }
 
@@ -24,3 +24,5 @@ enum Infraction {
 }
 
 enum Speed { slow, fast }
+
+enum KickType { upAndUnder, box, crossKick, punt, drop, grubber, chip, touche }

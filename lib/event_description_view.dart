@@ -7,6 +7,7 @@ import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/descriptors/infraction_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/kick_type_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/progression_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/speed_descriptor.dart';
 import 'package:match_recorder/widgets/players_select.dart';
@@ -26,8 +27,9 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
   late BaseEvent event;
   @override
   void initState() {
-    super.initState();
     event = widget.event;
+    selectedPlayers = event.players;
+    super.initState();
   }
 
   void _saveEvent() {
@@ -62,6 +64,7 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
           Expanded(
               child: PlayersSelect(
             teamType: event.teamType,
+            selectedPlayers: event.players,
             onPlayersChanged: (List<Player> players) =>
                 selectedPlayers = players,
           )),
@@ -112,6 +115,14 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                 });
               },
             ),
+          if (event.getDescriptors().contains(Descriptors.kickType))
+            KickTypeDescriptor(
+                kickType: event.getDescriptorValue<KickType>(),
+                onKickTypeChanged: (KickType kickType) {
+                  setState(() {
+                    event.setDescriptorValue<KickType>(kickType);
+                  });
+                }),
           LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints constraints) => SizedBox(
                 width: constraints.maxWidth,

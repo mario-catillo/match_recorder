@@ -7,11 +7,13 @@ import 'package:provider/provider.dart';
 
 class PlayersSelect extends StatefulWidget {
   TeamType teamType;
+  List<Player> selectedPlayers = [];
   final void Function(List<Player> players) onPlayersChanged;
 
   PlayersSelect({
     required this.teamType,
     required this.onPlayersChanged,
+    this.selectedPlayers = const [],
   });
 
   @override
@@ -23,8 +25,8 @@ class _PlayersSelectState extends State<PlayersSelect> {
 
   @override
   void initState() {
+    selectedPlayers = widget.selectedPlayers;
     super.initState();
-    selectedPlayers = [];
   }
 
   @override

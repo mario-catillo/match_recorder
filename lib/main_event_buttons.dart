@@ -3,6 +3,7 @@ import 'package:match_recorder/event_description_view.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/events/infraction_event.dart';
+import 'package:match_recorder/models/events/kick_event.dart';
 import 'package:match_recorder/models/events/ruck_event.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
@@ -10,6 +11,7 @@ import 'package:match_recorder/models/events/tackle_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/events/try_event.dart';
 import 'package:match_recorder/team_page.dart';
+import 'package:match_recorder/widgets/event_button.dart';
 import 'package:provider/provider.dart';
 
 class MainEventButtons extends StatelessWidget {
@@ -31,31 +33,21 @@ class MainEventButtons extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 4,
       children: [
-        MaterialButton(
+        EventButton(
+          name: 'Tackle',
+          icon: 'assets/icons/tackle.png',
           onPressed: () => _onEventPressed(
               context,
               TackleEvent(
                   time: context.read<StopwatchState>().currentTime.value)),
-          child: Column(
-            children: [
-              Image.asset('assets/icons/tackle.png', width: 50, height: 50),
-              const Text('Tackle'),
-            ],
-          ),
         ),
-        MaterialButton(
-          onPressed: () => _onEventPressed(context,
-              TryEvent(time: context.read<StopwatchState>().currentTime.value)),
-          child: const Text('Try'),
-        ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Break'),
-        ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Pass'),
-        ),
+        EventButton(
+            name: 'Try',
+            icon: 'assets/icons/try.png',
+            onPressed: () => _onEventPressed(
+                context,
+                TryEvent(
+                    time: context.read<StopwatchState>().currentTime.value))),
         MaterialButton(
           onPressed: () => _onEventPressed(
               context,
@@ -67,20 +59,20 @@ class MainEventButtons extends StatelessWidget {
           onPressed: () => null,
           child: const Text('Maul'),
         ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Kick'),
-        ),
-        MaterialButton(
+        EventButton(
+            name: 'Kick',
+            icon: 'assets/icons/kick.png',
+            onPressed: () => _onEventPressed(
+                context,
+                KickEvent(
+                    time: context.read<StopwatchState>().currentTime.value))),
+        EventButton(
+            name: 'Infraction',
+            icon: 'assets/icons/referee.png',
             onPressed: () => _onEventPressed(
                 context,
                 InfractionEvent(
-                    time: context.read<StopwatchState>().currentTime.value)),
-            child: const Text('Infraction')),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Kick Off'),
-        ),
+                    time: context.read<StopwatchState>().currentTime.value))),
         MaterialButton(
           onPressed: () => _onEventPressed(
               context,
@@ -88,29 +80,14 @@ class MainEventButtons extends StatelessWidget {
                   time: context.read<StopwatchState>().currentTime.value)),
           child: const Text('Lineout'),
         ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Free kick'),
-        ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Penalty'),
-        ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Goal kick'),
-        ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Points'),
-        ),
-        MaterialButton(
+        EventButton(
+          icon: 'assets/icons/scrum.png',
           onPressed: () => _onEventPressed(
               context,
               ScrumEvent(
                   time: context.read<StopwatchState>().currentTime.value,
                   winnerTeam: TeamType.team1)),
-          child: const Text('Scrum'),
+          name: 'Scrum',
         ),
       ],
     );
