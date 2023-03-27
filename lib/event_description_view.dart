@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/team_page.dart';
@@ -27,17 +28,19 @@ class EventDescriptionView extends StatefulWidget {
 }
 
 class _EventDescriptionViewState extends State<EventDescriptionView> {
-  List<Player> selectedPlayers = [];
   late BaseEvent event;
   @override
   void initState() {
     event = widget.event;
-    selectedPlayers = event.players;
+    if (event is LineoutEvent) {
+      (event as LineoutEvent)
+          .setDefaultThrower(context.read<AppState>().defaultThrower);
+      (event as LineoutEvent).setAppState(context.read<AppState>());
+    }
     super.initState();
   }
 
   void _saveEvent() {
-    event.players = selectedPlayers;
     context.read<AppState>().pushEvent(event);
     Navigator.pop(context);
   }
@@ -65,21 +68,16 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
             },
             groupValue: event.teamType,
           ),
-          Expanded(
-              child: PlayersSelect(
-            teamType: event.teamType,
-            selectedPlayers: event.players,
-            onPlayersChanged: (List<Player> players) =>
-                selectedPlayers = players,
-          )),
-          PlayerSelect(
-              teamType: event.teamType,
-              selectedPlayer: event.player,
-              onPlayerChanged: (Player player) {
-                setState(() {
-                  event.player = player;
-                });
-              }),
+          for (var entry in event.getPlayers().entries)
+            PlayerSelect(
+                teamType: event.teamType,
+                hintText: entry.key,
+                selectedPlayer: event.getPlayer(entry.key),
+                onPlayerChanged: (Player player) {
+                  setState(() {
+                    event.setPlayer(entry.key, player);
+                  });
+                }),
           if (event is ScrumEvent)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

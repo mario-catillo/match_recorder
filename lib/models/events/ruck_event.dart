@@ -1,5 +1,6 @@
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/models/player.dart';
 
 class RuckEvent extends BaseEvent {
   RuckEvent({required String time}) : super(name: 'Ruck', time: time);
@@ -33,5 +34,20 @@ class RuckEvent extends BaseEvent {
     if (T == MovementProgression) {
       progress = value as MovementProgression;
     }
+  }
+
+  @override
+  Map<String, Player?> getPlayers() {
+    return {};
+  }
+
+  @override
+  void setPlayer(String key, Player? value) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Player? getPlayer(String key) {
+    throw UnimplementedError();
   }
 }

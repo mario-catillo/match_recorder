@@ -43,7 +43,7 @@ enum Result { won, lost }
 
 enum LineQuantity { two, three, four, five, six, seven, other }
 
-enum Points { try7, conversion, penalty, drop, penaltyTry }
+enum Points { try5, conversion2, penalty3, drop3, penaltyTry7 }
 
 enum LinePosition { A, B, C, D, E, other }
 

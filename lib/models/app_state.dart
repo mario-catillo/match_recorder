@@ -10,6 +10,7 @@ class AppState with ChangeNotifier {
   Team team1 = Team('Team 1', []);
   Team team2 = Team('Team 2', []);
   List<BaseEvent> events = [];
+  Player? defaultThrower;
 
   void pushEvent(BaseEvent event) {
     int index = events.indexWhere((element) => element.uuid == event.uuid);

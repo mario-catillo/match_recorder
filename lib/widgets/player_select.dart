@@ -9,11 +9,13 @@ import 'dart:math' as math;
 class PlayerSelect extends StatelessWidget {
   final TeamType teamType;
   final Player? selectedPlayer;
+  final String hintText;
   final void Function(Player player) onPlayerChanged;
 
   PlayerSelect({
     required this.teamType,
     required this.onPlayerChanged,
+    required this.hintText,
     this.selectedPlayer,
   });
 
@@ -22,7 +24,7 @@ class PlayerSelect extends StatelessWidget {
     Team team = context.read<AppState>().getTeam(teamType);
     return Row(
       children: [
-        const Text('Scegli giocatore:'),
+        Text(hintText),
         TextButton(
           child: Text(selectedPlayer?.name ?? 'Select'),
           onPressed: () => showDialog(
@@ -108,23 +110,23 @@ class _PlayerSelectPainter extends CustomPainter {
     switch (player.number) {
       case "1":
         row = 1;
-        col = 1;
+        col = 2;
         break;
       case "2":
         row = 1;
-        col = 3;
+        col = 6;
         break;
       case "3":
         row = 1;
-        col = 5;
+        col = 10;
         break;
       case "4":
         row = 2;
-        col = 2;
+        col = 4;
         break;
       case "5":
         row = 2;
-        col = 4;
+        col = 8;
         break;
       case "6":
         row = 3;
@@ -132,34 +134,34 @@ class _PlayerSelectPainter extends CustomPainter {
         break;
       case "7":
         row = 3;
-        col = 5;
+        col = 11;
         break;
       case "8":
         row = 3;
-        col = 3;
+        col = 6;
         break;
       case "9":
         row = 5;
-        col = 6;
+        col = 4;
         break;
       case "10":
-        row = 7;
-        col = 6;
+        row = 5;
+        col = 8;
         break;
       case "11":
-        row = 10;
+        row = 7;
         col = 1;
         break;
       case "12":
         row = 7;
-        col = 9;
+        col = 5;
         break;
       case "13":
         row = 7;
-        col = 11;
+        col = 7;
         break;
       case "14":
-        row = 10;
+        row = 7;
         col = 11;
         break;
       case "15":

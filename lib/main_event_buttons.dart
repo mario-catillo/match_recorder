@@ -9,7 +9,7 @@ import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/events/tackle_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
-import 'package:match_recorder/models/events/try_event.dart';
+import 'package:match_recorder/models/events/points_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/event_button.dart';
 import 'package:provider/provider.dart';
@@ -42,11 +42,11 @@ class MainEventButtons extends StatelessWidget {
                   time: context.read<StopwatchState>().currentTime.value)),
         ),
         EventButton(
-            name: 'Try',
+            name: 'Points',
             icon: 'assets/icons/try.png',
             onPressed: () => _onEventPressed(
                 context,
-                TryEvent(
+                PointsEvent(
                     time: context.read<StopwatchState>().currentTime.value))),
         MaterialButton(
           onPressed: () => _onEventPressed(

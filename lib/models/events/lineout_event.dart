@@ -1,14 +1,29 @@
 import 'package:match_recorder/enums/descriptors.dart';
+import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/models/player.dart';
 
 class LineoutEvent extends BaseEvent {
   final String quantity;
+  AppState? appState;
 
   LineoutEvent(this.quantity, {required String time})
       : super(name: 'Lineout', time: time);
+
   LineResult lineResult = LineResult.clean;
   LineQuantity lineQuantity = LineQuantity.seven;
   LinePosition lineoutPosition = LinePosition.A;
+
+  Player? receiver;
+  Player? thrower;
+
+  void setDefaultThrower(Player? player) {
+    thrower = player;
+  }
+
+  void setAppState(AppState? state) {
+    appState = state;
+  }
 
   @override
   String getEventName() => 'Lineout';
@@ -47,6 +62,33 @@ class LineoutEvent extends BaseEvent {
     if (T == LinePosition) {
       lineoutPosition = value as LinePosition;
     }
+  }
+
+  @override
+  Map<String, Player?> getPlayers() {
+    return {'thrower': thrower, 'receiver': receiver};
+  }
+
+  @override
+  void setPlayer(String key, Player? value) {
+    if (key == 'thrower') {
+      thrower = value;
+      appState?.defaultThrower = value;
+    }
+    if (key == 'receiver') {
+      receiver = value;
+    }
+  }
+
+  @override
+  Player? getPlayer(String key) {
+    if (key == 'thrower') {
+      return thrower;
+    }
+    if (key == 'receiver') {
+      return receiver;
+    }
+    return null;
   }
 }
 //Time;Team;Player(Catch);Player(Throw);Lineposition;Quantity;Zone;Lineresult;Linename

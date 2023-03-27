@@ -11,8 +11,6 @@ abstract class BaseEvent {
   Offset fieldPosition;
 
   TeamType teamType;
-  Player? player;
-  List<Player> players = [];
 
   BaseEvent(
       {required this.time,
@@ -26,6 +24,11 @@ abstract class BaseEvent {
   List<Descriptors> getDescriptors() {
     return [];
   }
+
+  Map<String, Player?> getPlayers();
+  Player? getPlayer(String key);
+
+  void setPlayer(String key, Player? player);
 
   T getDescriptorValue<T>();
   setDescriptorValue<T>(T value);

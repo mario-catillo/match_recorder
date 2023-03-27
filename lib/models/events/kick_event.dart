@@ -1,9 +1,11 @@
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/models/player.dart';
 
 class KickEvent extends BaseEvent {
   KickEvent({required String time}) : super(name: 'Kick', time: time);
   KickType kickType = KickType.upAndUnder;
+  Player? kicker;
   @override
   String getEventName() => 'Kick';
 
@@ -25,5 +27,25 @@ class KickEvent extends BaseEvent {
     if (T == KickType) {
       kickType = value as KickType;
     }
+  }
+
+  @override
+  Map<String, Player?> getPlayers() {
+    return {'kicker': kicker};
+  }
+
+  @override
+  void setPlayer(String key, Player? player) {
+    if (key == 'kicker') {
+      kicker = player;
+    }
+  }
+
+  @override
+  Player? getPlayer(String key) {
+    if (key == 'kicker') {
+      return kicker;
+    }
+    return null;
   }
 }
