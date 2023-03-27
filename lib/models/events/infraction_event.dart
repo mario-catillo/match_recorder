@@ -2,7 +2,7 @@ import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 
 class InfractionEvent extends BaseEvent {
-  Infraction infraction = Infraction.foulPlay;
+  Infraction infraction = Infraction.dirtyPlay;
   InfractionEvent({required String time})
       : super(name: 'Infraction', time: time);
 

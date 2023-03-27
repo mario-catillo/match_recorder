@@ -11,6 +11,9 @@ import 'package:match_recorder/widgets/descriptors/kick_type_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/progression_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/speed_descriptor.dart';
 import 'package:match_recorder/widgets/player_select.dart';
+import 'package:match_recorder/widgets/descriptors/line_result_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/line_position_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/line_quantity_descriptor.dart';
 import 'package:match_recorder/widgets/players_select.dart';
 import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
 import 'package:provider/provider.dart';
@@ -106,12 +109,37 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                     event.setDescriptorValue<MovementProgression>(progress);
                   });
                 }),
+          if (event.getDescriptors().contains(Descriptors.linePosition))
+            LinePositionnDescriptor(
+                linePosition: event.getDescriptorValue<LinePosition>(),
+                onLinePositionChanged: (LinePosition linePosition) {
+                  setState(() {
+                    event.setDescriptorValue<LinePosition>(linePosition);
+                  });
+                }),
+          if (event.getDescriptors().contains(Descriptors.lineQuantity))
+            LineQuantitynDescriptor(
+                lineQuantity: event.getDescriptorValue<LineQuantity>(),
+                onLineQuantityChanged: (LineQuantity lineQuantity) {
+                  setState(() {
+                    event.setDescriptorValue<LineQuantity>(lineQuantity);
+                  });
+                }),
           if (event.getDescriptors().contains(Descriptors.infraction))
             InfractionnDescriptor(
               infraction: event.getDescriptorValue<Infraction>(),
               onInfractionChanged: (Infraction infraction) {
                 setState(() {
                   event.setDescriptorValue<Infraction>(infraction);
+                });
+              },
+            ),
+          if (event.getDescriptors().contains(Descriptors.lineResult))
+            LineResultnDescriptor(
+              lineResult: event.getDescriptorValue<LineResult>(),
+              onLineResultChanged: (LineResult lineResult) {
+                setState(() {
+                  event.setDescriptorValue<LineResult>(lineResult);
                 });
               },
             ),

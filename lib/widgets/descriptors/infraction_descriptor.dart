@@ -9,46 +9,69 @@ class InfractionnDescriptor extends StatelessWidget {
       {Key? key, required this.infraction, required this.onInfractionChanged})
       : super(key: key);
 
+  // String _translateInfraction(Infraction infraction) {
+  //   switch (infraction) {
+  //     case Infraction.forwardPass:
+  //       return "Passaggio avanti";
+  //     case Infraction.knockOn:
+  //       return "Knock on";
+  //     case Infraction.highTackle:
+  //       return "Placcaggio alto";
+  //     case Infraction.tackleWithoutBall:
+  //       return "Placcaggio senza palla";
+  //     case Infraction.crookedFeed:
+  //       return "crooked feed";
+  //     case Infraction.offside:
+  //       return "fuori gioco";
+  //     case Infraction.irregularRuck:
+  //       return "ruck irregolare";
+  //     case Infraction.irregularMaul:
+  //       return "maul irregolare";
+  //     case Infraction.irregularScrum:
+  //       return "mischia irregolare";
+  //     case Infraction.holding:
+  //       return "tenuta";
+  //     case Infraction.obstruction:
+  //       return "ostruzione";
+  //     case Infraction.notReleasingTackledPlayer:
+  //       return "non rilascia";
+  //     case Infraction.comingInFromTheSide:
+  //       return "entrata laterale";
+  //     case Infraction.illegalKicks:
+  //       return "calcio illegale";
+  //     case Infraction.handsInTheRuck:
+  //       return "mani nel ruck";
+  //     case Infraction.encroachment:
+  //       return "encroachment";
+  //     case Infraction.dissent:
+  //       return "protesta";
+  //     case Infraction.foulPlay:
+  //       return "gioco pericoloso";
+  //     default:
+  //       return 'Falta';
+  //   }
+  // }
+
   String _translateInfraction(Infraction infraction) {
     switch (infraction) {
-      case Infraction.forwardPass:
-        return "Passaggio avanti";
-      case Infraction.knockOn:
-        return "Knock on";
-      case Infraction.highTackle:
-        return "Placcaggio alto";
-      case Infraction.tackleWithoutBall:
-        return "Placcaggio senza palla";
-      case Infraction.crookedFeed:
-        return "crooked feed";
+      case Infraction.dirtyPlay:
+        return "Gioco Sporco";
+      case Infraction.ruckAttack:
+        return "Ruck Attaco";
+      case Infraction.ruckDefence:
+        return "Ruck Difesa";
+      case Infraction.maul:
+        return "Maul";
+      case Infraction.scrum:
+        return "Mischia chiusa";
       case Infraction.offside:
-        return "fuori gioco";
-      case Infraction.irregularRuck:
-        return "ruck irregolare";
-      case Infraction.irregularMaul:
-        return "maul irregolare";
-      case Infraction.irregularScrum:
-        return "mischia irregolare";
-      case Infraction.holding:
-        return "tenuta";
-      case Infraction.obstruction:
-        return "ostruzione";
-      case Infraction.notReleasingTackledPlayer:
-        return "non rilascia";
-      case Infraction.comingInFromTheSide:
-        return "entrata laterale";
-      case Infraction.illegalKicks:
-        return "calcio illegale";
-      case Infraction.handsInTheRuck:
-        return "mani nel ruck";
-      case Infraction.encroachment:
-        return "encroachment";
-      case Infraction.dissent:
-        return "protesta";
-      case Infraction.foulPlay:
-        return "gioco pericoloso";
+        return "Fuori gioco";
+      case Infraction.lineout:
+        return "Touche";
+      case Infraction.tenMeters:
+        return "+10 metri";
       default:
-        return 'Falta';
+        return 'Fallo';
     }
   }
 
