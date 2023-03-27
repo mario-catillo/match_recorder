@@ -10,6 +10,7 @@ import 'package:match_recorder/widgets/descriptors/infraction_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/kick_type_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/progression_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/speed_descriptor.dart';
+import 'package:match_recorder/widgets/player_select.dart';
 import 'package:match_recorder/widgets/players_select.dart';
 import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +69,14 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
             onPlayersChanged: (List<Player> players) =>
                 selectedPlayers = players,
           )),
+          PlayerSelect(
+              teamType: event.teamType,
+              selectedPlayer: event.player,
+              onPlayerChanged: (Player player) {
+                setState(() {
+                  event.player = player;
+                });
+              }),
           if (event is ScrumEvent)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

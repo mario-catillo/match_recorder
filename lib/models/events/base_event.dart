@@ -11,6 +11,7 @@ abstract class BaseEvent {
   Offset fieldPosition;
 
   TeamType teamType;
+  Player? player;
   List<Player> players = [];
 
   BaseEvent(

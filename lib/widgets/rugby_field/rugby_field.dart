@@ -31,7 +31,7 @@ class _RugbyFieldState extends State<RugbyField> {
               _touchPosition = localPosition;
             });
           },
-          child: Container(
+          child: SizedBox(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
             child: CustomPaint(
