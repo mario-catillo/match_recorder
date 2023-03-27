@@ -15,6 +15,7 @@ import 'package:match_recorder/widgets/player_select.dart';
 import 'package:match_recorder/widgets/descriptors/line_result_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/line_position_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/line_quantity_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/turnover_descriptor.dart';
 import 'package:match_recorder/widgets/players_select.dart';
 import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
 import 'package:provider/provider.dart';
@@ -150,6 +151,14 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                 });
               },
             ),
+          if (event.getDescriptors().contains(Descriptors.turnover))
+            TurnovernDescriptor(
+                turnover: event.getDescriptorValue<Turnover>(),
+                onTurnoverChanged: (Turnover turnover) {
+                  setState(() {
+                    event.setDescriptorValue<Turnover>(turnover);
+                  });
+                }),
           if (event.getDescriptors().contains(Descriptors.kickType))
             KickTypeDescriptor(
                 kickType: event.getDescriptorValue<KickType>(),

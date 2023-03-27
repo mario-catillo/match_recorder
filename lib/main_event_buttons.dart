@@ -6,6 +6,7 @@ import 'package:match_recorder/models/events/infraction_event.dart';
 import 'package:match_recorder/models/events/kick_event.dart';
 import 'package:match_recorder/models/events/ruck_event.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
+import 'package:match_recorder/models/events/turnover_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/events/tackle_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
@@ -88,6 +89,14 @@ class MainEventButtons extends StatelessWidget {
                   time: context.read<StopwatchState>().currentTime.value,
                   winnerTeam: TeamType.team1)),
           name: 'Scrum',
+        ),
+        EventButton(
+          onPressed: () => _onEventPressed(
+              context,
+              TurnoverEvent(
+                time: context.read<StopwatchState>().currentTime.value,
+              )),
+          name: 'Turnover',
         ),
       ],
     );
