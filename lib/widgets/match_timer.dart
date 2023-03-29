@@ -11,9 +11,10 @@ class MatchTimer extends StatelessWidget {
   Widget build(BuildContext context) {
     final stopwatchState = Provider.of<StopwatchState>(context);
     return ValueListenableBuilder(
-        valueListenable: stopwatchState.currentTime,
+        valueListenable: stopwatchState.currentDuration,
         builder: (context, value, child) {
-          return Text(value);
+          return Text(
+              "${value.inMinutes.toString().padLeft(2, '0')}:${(value.inSeconds % 60).toString().padLeft(2, '0')}");
         });
   }
 }

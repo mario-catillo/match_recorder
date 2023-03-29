@@ -3,7 +3,8 @@ import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
 
 class RuckEvent extends BaseEvent {
-  RuckEvent({required String time}) : super(name: 'Ruck', time: time);
+  RuckEvent({required Duration duration})
+      : super(name: 'Ruck', duration: duration);
   Speed speed = Speed.slow;
   MovementProgression progress = MovementProgression.neutral;
 

@@ -3,7 +3,8 @@ import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
 
 class KickEvent extends BaseEvent {
-  KickEvent({required String time}) : super(name: 'Kick', time: time);
+  KickEvent({required Duration duration})
+      : super(name: 'Kick', duration: duration);
   KickType kickType = KickType.upAndUnder;
   Player? kicker;
   @override

@@ -7,8 +7,8 @@ class LineoutEvent extends BaseEvent {
   final String quantity;
   AppState? appState;
 
-  LineoutEvent(this.quantity, {required String time})
-      : super(name: 'Lineout', time: time);
+  LineoutEvent(this.quantity, {required Duration duration})
+      : super(name: 'Lineout', duration: duration);
 
   LineResult lineResult = LineResult.clean;
   LineQuantity lineQuantity = LineQuantity.seven;

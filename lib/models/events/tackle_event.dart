@@ -4,7 +4,8 @@ import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/widgets/descriptors/progression_descriptor.dart';
 
 class TackleEvent extends BaseEvent {
-  TackleEvent({required String time}) : super(name: 'Tackle', time: time);
+  TackleEvent({required Duration duration})
+      : super(name: 'Tackle', duration: duration);
   MovementProgression progress = MovementProgression.neutral;
   Player? tacklePlayer1;
   Player? tacklePlayer2;

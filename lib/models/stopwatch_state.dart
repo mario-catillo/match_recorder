@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class StopwatchState extends ChangeNotifier {
   final Stopwatch _stopwatch = Stopwatch();
-  final ValueNotifier<String> currentTime = ValueNotifier("00:00:00");
+  final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
 
   void start() {
     _stopwatch.start();
@@ -19,7 +19,7 @@ class StopwatchState extends ChangeNotifier {
 
   void reset() {
     _stopwatch.reset();
-    currentTime.value = "00:00:00";
+    currentDuration.value = Duration.zero;
     notifyListeners();
   }
 
@@ -27,15 +27,13 @@ class StopwatchState extends ChangeNotifier {
     while (_stopwatch.isRunning) {
       await Future.delayed(const Duration(milliseconds: 10));
       final duration = _stopwatch.elapsed;
-      currentTime.value = "${duration.inMinutes.toString().padLeft(2, '0')}:"
-          "${(duration.inSeconds % 60).toString().padLeft(2, '0')}:"
-          "${(duration.inMilliseconds % 1000 ~/ 10).toString().padLeft(2, '0')}";
+      currentDuration.value = duration;
     }
   }
 
   @override
   void dispose() {
-    currentTime.dispose();
+    currentDuration.dispose();
     super.dispose();
   }
 }

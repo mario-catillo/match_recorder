@@ -5,7 +5,7 @@ import 'package:match_recorder/team_page.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class BaseEvent {
-  final String time;
+  final Duration duration;
   final String name;
   final String uuid;
   Offset fieldPosition;
@@ -13,7 +13,7 @@ abstract class BaseEvent {
   TeamType teamType;
 
   BaseEvent(
-      {required this.time,
+      {required this.duration,
       required this.name,
       this.teamType = TeamType.team1,
       this.fieldPosition = Offset.zero})
@@ -32,4 +32,8 @@ abstract class BaseEvent {
 
   T getDescriptorValue<T>();
   setDescriptorValue<T>(T value);
+
+  String getTimeString() {
+    return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
 }

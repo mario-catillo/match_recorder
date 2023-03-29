@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/models/events/infraction_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/team.dart';
 import 'package:match_recorder/team_page.dart';
@@ -12,13 +14,25 @@ class AppState with ChangeNotifier {
   List<BaseEvent> events = [];
   Player? defaultThrower;
 
+  Map<Player, Duration> yellowCardPlayers = {};
+
   void pushEvent(BaseEvent event) {
     int index = events.indexWhere((element) => element.uuid == event.uuid);
     if (index != -1) {
       events[index] = event;
     } else {
       events.add(event);
+      if (event is InfractionEvent &&
+          event.infractionPlayer != null &&
+          event.cardStatus == CardStatus.yellow) {
+        yellowCardPlayers[event.infractionPlayer!] = event.duration;
+      }
     }
+    notifyListeners();
+  }
+
+  void playerBackInGame(Player player) {
+    yellowCardPlayers.remove(player);
     notifyListeners();
   }
 

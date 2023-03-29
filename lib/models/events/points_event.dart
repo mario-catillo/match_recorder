@@ -3,7 +3,8 @@ import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
 
 class PointsEvent extends BaseEvent {
-  PointsEvent({required String time}) : super(name: 'Points', time: time);
+  PointsEvent({required Duration duration})
+      : super(name: 'Points', duration: duration);
   Points points = Points.try5;
   Player? pointsPlayer;
   @override

@@ -11,7 +11,8 @@ enum Descriptors {
   lineQuantity,
   points,
   linePosition,
-  tackleShoulder
+  tackleShoulder,
+  cardStatus
 }
 
 enum MovementProgression { positive, negative, neutral }
@@ -48,3 +49,5 @@ enum Points { try5, conversion2, penalty3, drop3, penaltyTry7 }
 enum LinePosition { A, B, C, D, E, other }
 
 enum TackleShoulder { internal, external, double }
+
+enum CardStatus { yellow, red, none }

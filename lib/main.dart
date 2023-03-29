@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:match_recorder/main_event_buttons.dart';
 import 'package:match_recorder/models/app_state.dart';
+import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/team_page.dart';
+import 'package:match_recorder/widgets/YellowCardPlayer.dart';
 import 'package:match_recorder/widgets/events_list.dart';
 import 'package:match_recorder/widgets/match_timer.dart';
 import 'package:provider/provider.dart';
@@ -126,6 +128,19 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(child: MainEventButtons()),
+            Consumer<AppState>(builder: (ctx, appState, child) {
+              return Expanded(
+                  child: ListView.builder(
+                itemBuilder: (ctx, index) {
+                  final player =
+                      appState.yellowCardPlayers.entries.toList()[index].key;
+                  final infractionTime = appState.yellowCardPlayers[player]!;
+                  return YellowCardPlayer(
+                      player: player, infractionTime: infractionTime);
+                },
+                itemCount: appState.yellowCardPlayers.entries.length,
+              ));
+            }),
             Consumer<StopwatchState>(builder: (ctx, stopwatchState, child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? const Icon(Icons.pause)
                           : const Icon(Icons.play_arrow)),
                   const MatchTimer(),
-                  if (stopwatchState.currentTime.value != '00:00:00')
+                  if (stopwatchState.currentDuration.value != Duration.zero)
                     IconButton(
                         onPressed: () => stopwatchState.reset(),
                         icon: const Icon(Icons.refresh)),

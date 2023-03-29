@@ -48,7 +48,7 @@ class EventsList extends StatelessWidget {
                     Text(event.getEventName()),
                   ],
                 ),
-                Text(event.time)
+                Text(event.getTimeString())
               ],
             ),
           ),

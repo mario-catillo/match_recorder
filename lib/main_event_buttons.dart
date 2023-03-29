@@ -39,7 +39,8 @@ class MainEventButtons extends StatelessWidget {
           onPressed: () => _onEventPressed(
               context,
               TackleEvent(
-                  time: context.read<StopwatchState>().currentTime.value)),
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
         ),
         EventButton(
             name: 'Points',
@@ -47,12 +48,14 @@ class MainEventButtons extends StatelessWidget {
             onPressed: () => _onEventPressed(
                 context,
                 PointsEvent(
-                    time: context.read<StopwatchState>().currentTime.value))),
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value))),
         MaterialButton(
           onPressed: () => _onEventPressed(
               context,
               RuckEvent(
-                  time: context.read<StopwatchState>().currentTime.value)),
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
           child: const Text('Ruck'),
         ),
         MaterialButton(
@@ -65,19 +68,22 @@ class MainEventButtons extends StatelessWidget {
             onPressed: () => _onEventPressed(
                 context,
                 KickEvent(
-                    time: context.read<StopwatchState>().currentTime.value))),
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value))),
         EventButton(
             name: 'Infraction',
             icon: 'assets/icons/referee.png',
             onPressed: () => _onEventPressed(
                 context,
                 InfractionEvent(
-                    time: context.read<StopwatchState>().currentTime.value))),
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value))),
         MaterialButton(
           onPressed: () => _onEventPressed(
               context,
               LineoutEvent("5",
-                  time: context.read<StopwatchState>().currentTime.value)),
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
           child: const Text('Lineout'),
         ),
         EventButton(
@@ -85,7 +91,8 @@ class MainEventButtons extends StatelessWidget {
           onPressed: () => _onEventPressed(
               context,
               ScrumEvent(
-                  time: context.read<StopwatchState>().currentTime.value,
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value,
                   winnerTeam: TeamType.team1)),
           name: 'Scrum',
         ),

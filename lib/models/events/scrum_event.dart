@@ -6,8 +6,8 @@ import 'package:match_recorder/team_page.dart';
 class ScrumEvent extends BaseEvent {
   TeamType winnerTeam;
   MovementProgression progress = MovementProgression.negative;
-  ScrumEvent({required String time, required this.winnerTeam})
-      : super(name: 'Scrum', time: time);
+  ScrumEvent({required Duration duration, required this.winnerTeam})
+      : super(name: 'Scrum', duration: duration);
 
   @override
   String getEventName() => 'Scrum';

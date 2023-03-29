@@ -7,6 +7,7 @@ import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/team_page.dart';
+import 'package:match_recorder/widgets/descriptors/cardstatus_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/infraction_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/kick_type_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/progression_descriptor.dart';
@@ -53,7 +54,7 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
       ),
       body: Column(
         children: [
-          Text(event.time),
+          Text(event.getTimeString()),
           CupertinoSlidingSegmentedControl<TeamType>(
             children: const {
               TeamType.team1: Text('Team 1'),
@@ -99,6 +100,14 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                 ),
               ],
             ),
+          if (event.getDescriptors().contains(Descriptors.cardStatus))
+            CardstatusDescriptor(
+                cardStatus: event.getDescriptorValue<CardStatus>(),
+                onCardStatusChanged: (CardStatus cardStatus) {
+                  setState(() {
+                    event.setDescriptorValue<CardStatus>(cardStatus);
+                  });
+                }),
           if (event.getDescriptors().contains(Descriptors.movementProgression))
             ProgressionDescriptor(
                 progress: event.getDescriptorValue<MovementProgression>(),
