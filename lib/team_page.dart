@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/player.dart';
-import 'package:match_recorder/models/team.dart';
+import 'package:match_recorder/widgets/teams/team_open_dialog.dart';
+import 'package:match_recorder/widgets/teams/team_save_dialog.dart';
 import 'package:provider/provider.dart';
 
 enum TeamType { team1, team2 }
@@ -18,6 +19,18 @@ class TeamPage extends StatelessWidget {
         title: Text(team.name),
         actions: [
           IconButton(
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (ctx) => TeamOpenDialog(
+                        teamType: teamType,
+                      )),
+              icon: const Icon(Icons.folder_open_outlined)),
+          IconButton(
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (ctx) => TeamSaveDialog(team: team)),
+              icon: const Icon(Icons.save)),
+          IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
               showDialog(
@@ -31,11 +44,23 @@ class TeamPage extends StatelessWidget {
       ),
       body: Consumer<AppState>(
         builder: (ctx, appstate, child) => ListView.builder(
-          itemCount: team.players.length,
-          itemBuilder: (ctx, index) => Row(children: [
-            Text(team.players[index].name),
-            Text(team.players[index].number),
-          ]),
+          itemCount: appstate.getTeam(teamType).players.length,
+          itemBuilder: (ctx, index) {
+            List<Player> playersCopy = List.from(
+                appstate.getTeam(teamType).players
+                  ..sort((p1, p2) =>
+                      int.parse(p1.number).compareTo(int.parse(p2.number))));
+            Player player = playersCopy[index];
+            return ListTile(
+              onLongPress: () => appstate.setTeam(
+                  team
+                    ..players.removeWhere(
+                        (element) => element.number == player.number),
+                  teamType),
+              title: Text(player.name),
+              subtitle: Text(player.number.toString()),
+            );
+          },
         ),
       ),
     );

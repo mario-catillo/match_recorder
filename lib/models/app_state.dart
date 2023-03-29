@@ -45,4 +45,16 @@ class AppState with ChangeNotifier {
         return team2;
     }
   }
+
+  void setTeam(Team team, TeamType teamType) {
+    switch (teamType) {
+      case TeamType.team1:
+        team1 = team;
+        break;
+      case TeamType.team2:
+        team2 = team;
+        break;
+    }
+    notifyListeners();
+  }
 }

@@ -193,11 +193,24 @@ class _PlayerSelectPainter extends CustomPainter {
       text: player.number,
       style: TextStyle(fontSize: 12, color: Colors.white),
     );
+
     _textPainter.layout();
     _textPainter.paint(
       canvas,
       Offset(position.dx - (_textPainter.width / 2),
           position.dy - (_textPainter.height / 2)),
+    );
+
+    _textPainter.text = TextSpan(
+      text: player.name,
+      style: TextStyle(fontSize: 6, color: Colors.white),
+    );
+
+    _textPainter.layout();
+    _textPainter.paint(
+      canvas,
+      Offset(position.dx - (_textPainter.width / 2),
+          position.dy - (_textPainter.height / 2) + 10),
     );
   }
 
