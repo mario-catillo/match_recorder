@@ -24,7 +24,7 @@ class YellowCardPlayer extends StatelessWidget {
             valueListenable: stopwatchState.currentDuration,
             builder: (ctx, value, child) {
               final remainingTime =
-                  ((infractionTime + const Duration(minutes: 5)) - value);
+                  ((infractionTime + const Duration(minutes: 10)) - value);
               return Text(
                   '${remainingTime.inMinutes.toString().padLeft(2, '0')}:${(remainingTime.inSeconds % 60).toString().padLeft(2, '0')}');
             }),
