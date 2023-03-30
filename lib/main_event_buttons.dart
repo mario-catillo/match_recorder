@@ -101,7 +101,7 @@ class MainEventButtons extends StatelessWidget {
           onPressed: () => _onEventPressed(
               context,
               TurnoverEvent(
-                time: context.read<StopwatchState>().currentTime.value,
+                duration: context.read<StopwatchState>().currentDuration.value,
               )),
           name: 'Turnover',
         ),

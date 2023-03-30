@@ -4,7 +4,8 @@ import 'package:match_recorder/models/player.dart';
 
 class TurnoverEvent extends BaseEvent {
   Turnover turnover = Turnover.knockOn;
-  TurnoverEvent({required String time}) : super(name: 'Turnover', time: time);
+  TurnoverEvent({required Duration duration})
+      : super(name: 'Turnover', duration: duration);
   Player? turnoverPlayer;
 
   @override
