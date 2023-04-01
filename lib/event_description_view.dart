@@ -18,6 +18,7 @@ import 'package:match_recorder/widgets/descriptors/line_position_descriptor.dart
 import 'package:match_recorder/widgets/descriptors/line_quantity_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/turnover_descriptor.dart';
 import 'package:match_recorder/widgets/players_select.dart';
+import 'package:match_recorder/widgets/descriptors/points_descriptor.dart';
 import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
 import 'package:provider/provider.dart';
 
@@ -157,6 +158,15 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
               onSpeedChanged: (Speed speed) {
                 setState(() {
                   event.setDescriptorValue<Speed>(speed);
+                });
+              },
+            ),
+          if (event.getDescriptors().contains(Descriptors.points))
+            PointsDescriptor(
+              points: event.getDescriptorValue<Points>(),
+              onPointsChanged: (Points points) {
+                setState(() {
+                  event.setDescriptorValue<Points>(points);
                 });
               },
             ),
