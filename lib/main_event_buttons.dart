@@ -12,6 +12,7 @@ import 'package:match_recorder/models/events/tackle_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/events/points_event.dart';
 import 'package:match_recorder/models/events/missed_tackle_event.dart';
+import 'package:match_recorder/models/events/break_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/event_button.dart';
 import 'package:provider/provider.dart';
@@ -112,6 +113,14 @@ class MainEventButtons extends StatelessWidget {
                   duration:
                       context.read<StopwatchState>().currentDuration.value)),
           child: const Text('Turnover'),
+        ),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              BreakEnEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          child: const Text('Break'),
         ),
       ],
     );

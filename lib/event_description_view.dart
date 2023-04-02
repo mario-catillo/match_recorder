@@ -18,6 +18,7 @@ import 'package:match_recorder/widgets/descriptors/line_position_descriptor.dart
 import 'package:match_recorder/widgets/descriptors/line_quantity_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/turnover_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/result_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/breaktype_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/tackle_shoulder_descriptor.dart';
 import 'package:match_recorder/widgets/players_select.dart';
 import 'package:match_recorder/widgets/descriptors/points_descriptor.dart';
@@ -202,6 +203,14 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                 onKickTypeChanged: (KickType kickType) {
                   setState(() {
                     event.setDescriptorValue<KickType>(kickType);
+                  });
+                }),
+          if (event.getDescriptors().contains(Descriptors.breakType))
+            BreakEnDescriptor(
+                breaktype: event.getDescriptorValue<BreakType>(),
+                onBreakEChanged: (BreakType breaktype) {
+                  setState(() {
+                    event.setDescriptorValue<BreakType>(breaktype);
                   });
                 }),
           LayoutBuilder(

@@ -33,7 +33,6 @@ enum Speed { slow, fast }
 enum KickType { upAndUnder, box, crossKick, punt, drop, grubber, chip, touche }
 
 enum BreakType { individual, sequence, numbers, kick }
-//manca evento
 
 enum Conversion { converted, failed }
 //manca evento
