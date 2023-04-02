@@ -9,19 +9,23 @@ class TackleEvent extends BaseEvent {
   MovementProgression progress = MovementProgression.neutral;
   Player? tacklePlayer1;
   Player? tacklePlayer2;
+  TackleShoulder tackleShoulder = TackleShoulder.external;
 
   @override
   String getEventName() => 'Tackle';
 
   @override
   List<Descriptors> getDescriptors() {
-    return [Descriptors.movementProgression];
+    return [Descriptors.movementProgression, Descriptors.tackleShoulder];
   }
 
   @override
   T getDescriptorValue<T>() {
     if (T == MovementProgression) {
       return progress as T;
+    }
+    if (T == TackleShoulder) {
+      return tackleShoulder as T;
     }
     throw UnimplementedError();
   }
@@ -30,6 +34,9 @@ class TackleEvent extends BaseEvent {
   setDescriptorValue<T>(T value) {
     if (T == MovementProgression) {
       progress = value as MovementProgression;
+    }
+    if (T == TackleShoulder) {
+      tackleShoulder = value as TackleShoulder;
     }
   }
 

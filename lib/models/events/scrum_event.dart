@@ -1,26 +1,31 @@
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
-import 'package:match_recorder/team_page.dart';
+// import 'package:match_recorder/team_page.dart';
 
 class ScrumEvent extends BaseEvent {
-  TeamType winnerTeam;
+  // TeamType winnerTeam;
   MovementProgression progress = MovementProgression.negative;
-  ScrumEvent({required Duration duration, required this.winnerTeam})
-      : super(name: 'Scrum', duration: duration);
+  Result result = Result.won;
+  ScrumEvent({
+    required Duration duration,
+  }) : super(name: 'Scrum', duration: duration);
 
   @override
   String getEventName() => 'Scrum';
 
   @override
   List<Descriptors> getDescriptors() {
-    return [Descriptors.movementProgression];
+    return [Descriptors.movementProgression, Descriptors.result];
   }
 
   @override
   T getDescriptorValue<T>() {
     if (T == MovementProgression) {
       return progress as T;
+    }
+    if (T == Result) {
+      return result as T;
     }
     throw UnimplementedError();
   }
@@ -29,6 +34,9 @@ class ScrumEvent extends BaseEvent {
   setDescriptorValue<T>(T value) {
     if (T == MovementProgression) {
       progress = value as MovementProgression;
+    }
+    if (T == Result) {
+      result = value as Result;
     }
   }
 
