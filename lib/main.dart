@@ -7,6 +7,8 @@ import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/YellowCardPlayer.dart';
 import 'package:match_recorder/widgets/events_list.dart';
 import 'package:match_recorder/widgets/match_timer.dart';
+import 'package:match_recorder/widgets/saves/load_match_dialog.dart';
+import 'package:match_recorder/widgets/saves/save_match_dialog.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -80,7 +82,28 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            DrawerHeader(child: Text('Match Recorder')),
+            DrawerHeader(
+                child: Column(
+              children: [
+                Text('Match Recorder'),
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () => showDialog(
+                          context: context,
+                          builder: (ctx) => const SaveMatchDialog()),
+                      child: const Text('Salva partita'),
+                    ),
+                    TextButton(
+                        onPressed: () => showDialog(
+                              context: context,
+                              builder: (ctx) => const LoadMatchDialog(),
+                            ),
+                        child: const Text("Carica partita"))
+                  ],
+                )
+              ],
+            )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

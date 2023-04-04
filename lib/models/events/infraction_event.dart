@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
+import 'package:match_recorder/team_page.dart';
 
 class InfractionEvent extends BaseEvent {
   Infraction infraction = Infraction.dirtyPlay;
   CardStatus cardStatus = CardStatus.none;
+  Player? infractionPlayer;
   InfractionEvent({required Duration duration})
       : super(name: 'Infraction', duration: duration);
-  Player? infractionPlayer;
 
   @override
   String getEventName() => 'Infraction';
@@ -57,5 +60,23 @@ class InfractionEvent extends BaseEvent {
       return infractionPlayer;
     }
     return null;
+  }
+
+  @override
+  String toJson() {
+    Map<String, dynamic> json = jsonDecode(super.toJson());
+    json.addAll({
+      'infraction': infraction.index,
+      'cardStatus': cardStatus.index,
+      'infractionPlayer': infractionPlayer?.toJson()
+    });
+    return jsonEncode(json);
+  }
+
+  @override
+  InfractionEvent.fromJson(String json) : super.fromJson(json) {
+    infraction = Infraction.values[jsonDecode(json)['infraction']];
+    cardStatus = CardStatus.values[jsonDecode(json)['cardStatus']];
+    infractionPlayer = Player.fromJson(jsonDecode(json)['infractionPlayer']);
   }
 }

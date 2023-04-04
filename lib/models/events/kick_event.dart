@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';

@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/player.dart';
+import 'package:match_recorder/models/serializable.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class BaseEvent {
+abstract class BaseEvent implements Serializable {
   final Duration duration;
   final String name;
   final String uuid;
@@ -36,4 +39,24 @@ abstract class BaseEvent {
   String getTimeString() {
     return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
+
+  @override
+  String toJson() {
+    return jsonEncode({
+      'duration': duration.inMilliseconds,
+      'name': name,
+      'uuid': uuid,
+      'fieldPosition': {"dx": fieldPosition.dx, "dy": fieldPosition.dy},
+      'teamType': teamType.index,
+    });
+  }
+
+  @override
+  BaseEvent.fromJson(String json)
+      : duration = Duration(milliseconds: jsonDecode(json)['duration']),
+        fieldPosition = Offset(jsonDecode(json)['fieldPosition']['dx'],
+            jsonDecode(json)['fieldPosition']['dy']),
+        name = jsonDecode(json)['name'],
+        uuid = jsonDecode(json)['uuid'],
+        teamType = TeamType.values[jsonDecode(json)['teamType']];
 }
