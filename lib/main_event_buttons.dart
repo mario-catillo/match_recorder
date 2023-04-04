@@ -11,6 +11,8 @@ import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/events/tackle_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/events/points_event.dart';
+import 'package:match_recorder/models/events/missed_tackle_event.dart';
+import 'package:match_recorder/models/events/break_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/event_button.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +44,14 @@ class MainEventButtons extends StatelessWidget {
               TackleEvent(
                   duration:
                       context.read<StopwatchState>().currentDuration.value)),
+        ),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              MissedTacklenEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          child: const Text('Missed Tackle'),
         ),
         EventButton(
             name: 'Points',
@@ -92,18 +102,25 @@ class MainEventButtons extends StatelessWidget {
           onPressed: () => _onEventPressed(
               context,
               ScrumEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value,
-                  winnerTeam: TeamType.team1)),
+                duration: context.read<StopwatchState>().currentDuration.value,
+              )),
           name: 'Scrum',
         ),
-        EventButton(
+        MaterialButton(
           onPressed: () => _onEventPressed(
               context,
               TurnoverEvent(
-                duration: context.read<StopwatchState>().currentDuration.value,
-              )),
-          name: 'Turnover',
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          child: const Text('Turnover'),
+        ),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              BreakEnEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          child: const Text('Break'),
         ),
       ],
     );

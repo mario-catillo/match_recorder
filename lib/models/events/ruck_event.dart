@@ -6,14 +6,14 @@ class RuckEvent extends BaseEvent {
   RuckEvent({required Duration duration})
       : super(name: 'Ruck', duration: duration);
   Speed speed = Speed.slow;
-  MovementProgression progress = MovementProgression.neutral;
+  // MovementProgression progress = MovementProgression.neutral;
 
   @override
   String getEventName() => 'Ruck';
 
   @override
   List<Descriptors> getDescriptors() {
-    return [Descriptors.speed, Descriptors.movementProgression];
+    return [Descriptors.speed];
   }
 
   @override
@@ -21,9 +21,9 @@ class RuckEvent extends BaseEvent {
     if (T == Speed) {
       return speed as T;
     }
-    if (T == MovementProgression) {
-      return progress as T;
-    }
+    // if (T == MovementProgression) {
+    //   return progress as T;
+    // }
     throw UnimplementedError();
   }
 
@@ -32,9 +32,9 @@ class RuckEvent extends BaseEvent {
     if (T == Speed) {
       speed = value as Speed;
     }
-    if (T == MovementProgression) {
-      progress = value as MovementProgression;
-    }
+    // if (T == MovementProgression) {
+    //   progress = value as MovementProgression;
+    // }
   }
 
   @override
