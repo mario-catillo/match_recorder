@@ -6,6 +6,7 @@ import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
+import 'package:match_recorder/models/events/maul_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/descriptors/cardstatus_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/infraction_descriptor.dart';

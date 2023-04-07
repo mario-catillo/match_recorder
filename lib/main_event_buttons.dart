@@ -13,6 +13,7 @@ import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/events/points_event.dart';
 import 'package:match_recorder/models/events/missed_tackle_event.dart';
 import 'package:match_recorder/models/events/break_event.dart';
+import 'package:match_recorder/models/events/maul_event.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/event_button.dart';
 import 'package:provider/provider.dart';
@@ -69,10 +70,13 @@ class MainEventButtons extends StatelessWidget {
                       context.read<StopwatchState>().currentDuration.value)),
           child: const Text('Ruck'),
         ),
-        MaterialButton(
-          onPressed: () => null,
-          child: const Text('Maul'),
-        ),
+        EventButton(
+            name: 'Maul',
+            onPressed: () => _onEventPressed(
+                context,
+                MaulEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value))),
         EventButton(
             name: 'Kick',
             icon: 'assets/icons/kick.png',
