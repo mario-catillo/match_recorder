@@ -15,12 +15,13 @@ class KickTypeDescriptor extends StatelessWidget {
       children: const {
         KickType.upAndUnder: Text('Up & under'),
         KickType.box: Text('Box'),
-        KickType.crossKick: Text('Cross kick'),
+        KickType.crossed: Text('Crossed'),
         KickType.drop: Text('Drop'),
         KickType.grubber: Text('Grubber'),
         KickType.punt: Text('Punt'),
         KickType.chip: Text('Chip'),
         KickType.touche: Text('Touche'),
+        KickType.goal: Text('Goal'),
       },
       onValueChanged: (KickType? kickType) {
         if (kickType != null) {
