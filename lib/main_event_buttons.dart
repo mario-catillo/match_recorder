@@ -39,7 +39,8 @@ class MainEventButtons extends StatelessWidget {
       children: [
         EventButton(
           name: 'Tackle',
-          icon: 'assets/icons/tackle.png',
+          buttoncolor: Colors.green.shade800,
+          // icon: 'assets/icons/tackle.png',
           onPressed: () => _onEventPressed(
               context,
               TackleEvent(
@@ -49,45 +50,51 @@ class MainEventButtons extends StatelessWidget {
         MaterialButton(
           onPressed: () => _onEventPressed(
               context,
-              MissedTacklenEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          child: const Text('Missed Tackle'),
-        ),
-        EventButton(
-            name: 'Points',
-            icon: 'assets/icons/try.png',
-            onPressed: () => _onEventPressed(
-                context,
-                PointsEvent(
-                    duration:
-                        context.read<StopwatchState>().currentDuration.value))),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
               RuckEvent(
                   duration:
                       context.read<StopwatchState>().currentDuration.value)),
+          color: Colors.blue.shade100,
           child: const Text('Ruck'),
         ),
-        EventButton(
-            name: 'Maul',
-            onPressed: () => _onEventPressed(
-                context,
-                MaulEvent(
-                    duration:
-                        context.read<StopwatchState>().currentDuration.value))),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              MissedTacklenEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          color: Colors.red.shade300,
+          child: const Text('Missed Tackle'),
+        ),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              BreakEnEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          color: Colors.green.shade600,
+          child: const Text('Break'),
+        ),
         EventButton(
             name: 'Kick',
-            icon: 'assets/icons/kick.png',
+            // icon: 'assets/icons/kick.png',
             onPressed: () => _onEventPressed(
                 context,
                 KickEvent(
                     duration:
                         context.read<StopwatchState>().currentDuration.value))),
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              TurnoverEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          color: Colors.orange.shade400,
+          child: const Text('Turnover'),
+        ),
         EventButton(
             name: 'Infraction',
-            icon: 'assets/icons/referee.png',
+            buttoncolor: Colors.red.shade600,
+            // icon: 'assets/icons/referee.png',
             onPressed: () => _onEventPressed(
                 context,
                 InfractionEvent(
@@ -99,10 +106,20 @@ class MainEventButtons extends StatelessWidget {
               LineoutEvent("5",
                   duration:
                       context.read<StopwatchState>().currentDuration.value)),
+          color: Colors.blueAccent.shade400,
           child: const Text('Lineout'),
         ),
         EventButton(
-          icon: 'assets/icons/scrum.png',
+            name: 'Maul',
+            buttoncolor: Colors.lightBlue.shade400,
+            onPressed: () => _onEventPressed(
+                context,
+                MaulEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value))),
+        EventButton(
+          // icon: 'assets/icons/scrum.png',
+          buttoncolor: Colors.blue.shade700,
           onPressed: () => _onEventPressed(
               context,
               ScrumEvent(
@@ -110,22 +127,15 @@ class MainEventButtons extends StatelessWidget {
               )),
           name: 'Scrum',
         ),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              TurnoverEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          child: const Text('Turnover'),
-        ),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              BreakEnEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          child: const Text('Break'),
-        ),
+        EventButton(
+            name: 'Points',
+            buttoncolor: Colors.blue.shade800,
+            // icon: 'assets/icons/try.png',
+            onPressed: () => _onEventPressed(
+                context,
+                PointsEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value))),
       ],
     );
   }
