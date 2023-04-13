@@ -7,6 +7,7 @@ import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/YellowCardPlayer.dart';
 import 'package:match_recorder/widgets/events_list.dart';
 import 'package:match_recorder/widgets/match_timer.dart';
+import 'package:match_recorder/widgets/misc/value_listenable_builder2.dart';
 import 'package:match_recorder/widgets/saves/load_match_dialog.dart';
 import 'package:match_recorder/widgets/saves/save_match_dialog.dart';
 import 'package:provider/provider.dart';
@@ -172,48 +173,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(
                       children: [
                         Expanded(
-                          child: GestureDetector(
-                              onTap: () => stopwatchState.setDefenseTime(),
-                              child: Consumer<AppState>(
-                                  builder: (ctx, appState, _) {
-                                return Container(
-                                    color: stopwatchState.gameStatus ==
-                                            GameStatus.defense
-                                        ? Colors.red
-                                        : Colors.white,
-                                    child: Column(children: [
-                                      const Text("Difesa"),
-                                      ValueListenableBuilder(
-                                          valueListenable:
-                                              stopwatchState.defenseTime,
-                                          builder: (ctx, value, child) {
-                                            return Text(
-                                                "Tempo difesa: ${value.inMinutes}:${value.inSeconds}");
-                                          })
-                                    ]));
-                              })),
+                          child: GamePhaseSwitch(
+                            gameStatus: GameStatus.defense,
+                            stopwatchState: stopwatchState,
+                          ),
                         ),
                         Expanded(
-                          child: GestureDetector(
-                            onTap: () => stopwatchState.setAttackTime(),
-                            child:
-                                Consumer<AppState>(builder: (ctx, appState, _) {
-                              return Container(
-                                  color: stopwatchState.gameStatus ==
-                                          GameStatus.attack
-                                      ? Colors.green
-                                      : Colors.white,
-                                  child: Column(children: [
-                                    const Text("Attacco"),
-                                    ValueListenableBuilder(
-                                        valueListenable:
-                                            stopwatchState.attackTime,
-                                        builder: (ctx, value, child) {
-                                          return Text(
-                                              "Tempo attacco: ${value.inMinutes}:${value.inSeconds}");
-                                        })
-                                  ]));
-                            }),
+                          child: GamePhaseSwitch(
+                            gameStatus: GameStatus.attack,
+                            stopwatchState: stopwatchState,
                           ),
                         )
                       ],
@@ -245,6 +213,66 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class GamePhaseSwitch extends StatelessWidget {
+  final StopwatchState stopwatchState;
+  final GameStatus gameStatus;
+  const GamePhaseSwitch({
+    super.key,
+    required this.stopwatchState,
+    required this.gameStatus,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => gameStatus == GameStatus.attack
+          ? stopwatchState.setAttackTime()
+          : stopwatchState.setDefenseTime(),
+      child: Consumer<AppState>(builder: (ctx, appState, _) {
+        return Container(
+            color: stopwatchState.gameStatus == gameStatus
+                ? gameStatus == GameStatus.attack
+                    ? Colors.red
+                    : Colors.green
+                : Colors.grey[800],
+            child: Column(children: [
+              Text(gameStatus == GameStatus.attack ? "Attacco" : "Difesa"),
+              ValueListenableBuilder2(
+                  first: gameStatus == GameStatus.attack
+                      ? stopwatchState.attackTime
+                      : stopwatchState.defenseTime,
+                  second: stopwatchState.currentDuration,
+                  builder: (ctx, time, duration, child) {
+                    int percentage = duration == Duration.zero ||
+                            time == Duration.zero
+                        ? 0
+                        : ((time.inSeconds / duration.inSeconds) * 100).ceil();
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            " ${time.inMinutes.toString().padLeft(2, '0')}:${(time.inSeconds % 60).toString().padLeft(2, '0')}",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w200)),
+                        const SizedBox(width: 10),
+                        Text(
+                          "$percentage%",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    );
+                  })
+            ]));
+      }),
     );
   }
 }
