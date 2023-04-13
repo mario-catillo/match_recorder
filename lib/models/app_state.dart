@@ -18,6 +18,7 @@ import 'package:path_provider/path_provider.dart';
 class AppState with ChangeNotifier implements Serializable {
   Team team1 = Team('Team 1', []);
   Team team2 = Team('Team 2', []);
+
   List<BaseEvent> events = [];
   Player? defaultThrower;
 

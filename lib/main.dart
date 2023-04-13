@@ -164,25 +164,84 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: appState.yellowCardPlayers.entries.length,
               ));
             }),
-            Consumer<StopwatchState>(builder: (ctx, stopwatchState, child) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                      onPressed: () => stopwatchState.isRunning()
-                          ? context.read<StopwatchState>().stop()
-                          : context.read<StopwatchState>().start(),
-                      icon: stopwatchState.isRunning()
-                          ? const Icon(Icons.pause)
-                          : const Icon(Icons.play_arrow)),
-                  const MatchTimer(),
-                  if (stopwatchState.currentDuration.value != Duration.zero)
-                    IconButton(
-                        onPressed: () => stopwatchState.reset(),
-                        icon: const Icon(Icons.refresh)),
-                ],
-              );
-            }),
+            SafeArea(
+              child: Consumer<StopwatchState>(
+                  builder: (ctx, stopwatchState, child) {
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                              onTap: () => stopwatchState.setDefenseTime(),
+                              child: Consumer<AppState>(
+                                  builder: (ctx, appState, _) {
+                                return Container(
+                                    color: stopwatchState.gameStatus ==
+                                            GameStatus.defense
+                                        ? Colors.red
+                                        : Colors.white,
+                                    child: Column(children: [
+                                      const Text("Difesa"),
+                                      ValueListenableBuilder(
+                                          valueListenable:
+                                              stopwatchState.defenseTime,
+                                          builder: (ctx, value, child) {
+                                            return Text(
+                                                "Tempo difesa: ${value.inMinutes}:${value.inSeconds}");
+                                          })
+                                    ]));
+                              })),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => stopwatchState.setAttackTime(),
+                            child:
+                                Consumer<AppState>(builder: (ctx, appState, _) {
+                              return Container(
+                                  color: stopwatchState.gameStatus ==
+                                          GameStatus.attack
+                                      ? Colors.green
+                                      : Colors.white,
+                                  child: Column(children: [
+                                    const Text("Attacco"),
+                                    ValueListenableBuilder(
+                                        valueListenable:
+                                            stopwatchState.attackTime,
+                                        builder: (ctx, value, child) {
+                                          return Text(
+                                              "Tempo attacco: ${value.inMinutes}:${value.inSeconds}");
+                                        })
+                                  ]));
+                            }),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () => stopwatchState.isRunning()
+                                ? context.read<StopwatchState>().stop()
+                                : context.read<StopwatchState>().start(),
+                            icon: stopwatchState.isRunning()
+                                ? const Icon(Icons.pause)
+                                : const Icon(Icons.play_arrow)),
+                        const MatchTimer(),
+                        if (stopwatchState.currentDuration.value !=
+                            Duration.zero)
+                          IconButton(
+                              onPressed: () {
+                                stopwatchState.reset();
+                              },
+                              icon: const Icon(Icons.refresh)),
+                      ],
+                    ),
+                  ],
+                );
+              }),
+            ),
           ],
         ),
       ),

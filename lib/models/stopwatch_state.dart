@@ -1,8 +1,29 @@
 import 'package:flutter/foundation.dart';
 
+enum GameStatus { defense, attack }
+
 class StopwatchState extends ChangeNotifier {
   final Stopwatch _stopwatch = Stopwatch();
   final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
+  final ValueNotifier<Duration> defenseTime = ValueNotifier(Duration.zero);
+  final ValueNotifier<Duration> attackTime = ValueNotifier(Duration.zero);
+  GameStatus gameStatus = GameStatus.defense;
+
+  void setDefenseTime() {
+    gameStatus = GameStatus.defense;
+    notifyListeners();
+  }
+
+  void setAttackTime() {
+    gameStatus = GameStatus.attack;
+    notifyListeners();
+  }
+
+  void resetGameTypeTime() {
+    defenseTime.value = Duration.zero;
+    attackTime.value = Duration.zero;
+    notifyListeners();
+  }
 
   void start() {
     _stopwatch.start();
@@ -20,6 +41,7 @@ class StopwatchState extends ChangeNotifier {
   void reset() {
     _stopwatch.reset();
     currentDuration.value = Duration.zero;
+    resetGameTypeTime();
     notifyListeners();
   }
 
@@ -28,6 +50,12 @@ class StopwatchState extends ChangeNotifier {
       await Future.delayed(const Duration(milliseconds: 10));
       final duration = _stopwatch.elapsed;
       currentDuration.value = duration;
+      attackTime.value += gameStatus == GameStatus.attack
+          ? duration - attackTime.value - defenseTime.value
+          : Duration.zero;
+      defenseTime.value += gameStatus == GameStatus.defense
+          ? duration - attackTime.value - defenseTime.value
+          : Duration.zero;
     }
   }
 
