@@ -1,57 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/player.dart';
-import 'package:match_recorder/models/team.dart';
-import 'package:match_recorder/team_page.dart';
-import 'package:provider/provider.dart';
-import 'dart:math' as math;
-
-// class PlayerSelect extends StatelessWidget {
-//   final TeamType teamType;
-//   final Player? selectedPlayer;
-//   final String hintText;
-//   final void Function(Player player) onPlayerChanged;
-
-//   PlayerSelect({
-//     required this.teamType,
-//     required this.onPlayerChanged,
-//     required this.hintText,
-//     this.selectedPlayer,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Team team = context.read<AppState>().getTeam(teamType);
-//     return Row(
-//       children: [
-//         Text(hintText),
-//         TextButton(
-//           child: Text(selectedPlayer?.name ?? 'Select'),
-//           onPressed: () => showDialog(
-//               context: context,
-//               builder: (ctx) => _PlayerSelectDialog(
-//                     players: team.players,
-//                     onPlayerTap: (player) {
-//                       onPlayerChanged(player);
-//                       Navigator.of(ctx).pop();
-//                     },
-//                   )),
-//         ),
-//         _PlayerSelectDialog(
-//           players: team.players,
-//           onPlayerTap: (player) {
-//             onPlayerChanged(player);
-//           },
-//         )
-//       ],
-//     );
-//   }
-// }
 
 class PlayerSelect extends StatelessWidget {
   final List<Player> players;
   final Function(Player player) onPlayerTap;
-  PlayerSelect({required this.players, required this.onPlayerTap});
+  final Player? selectedPlayer;
+  const PlayerSelect(
+      {super.key,
+      required this.players,
+      required this.onPlayerTap,
+      this.selectedPlayer});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +22,9 @@ class PlayerSelect extends StatelessWidget {
               height: constraints.maxWidth,
               child: CustomPaint(
                 painter: _PlayerSelectPainter(
-                    players: players, onPlayerTap: onPlayerTap),
+                    players: players,
+                    onPlayerTap: onPlayerTap,
+                    selectedPlayer: selectedPlayer),
               ),
             ),
           );
@@ -77,6 +37,7 @@ class PlayerSelect extends StatelessWidget {
 class _PlayerSelectPainter extends CustomPainter {
   final Paint _playerPaint = Paint()..color = Colors.blue;
   final List<Player> players;
+  final Player? selectedPlayer;
   final Paint _backgroundPaint = Paint()..color = Colors.green;
   final Map<Player, Offset> _playerPositions = {};
   late Size savedSize;
@@ -86,7 +47,8 @@ class _PlayerSelectPainter extends CustomPainter {
     textAlign: TextAlign.center,
     textDirection: TextDirection.ltr,
   );
-  _PlayerSelectPainter({required this.players, required this.onPlayerTap});
+  _PlayerSelectPainter(
+      {required this.players, required this.onPlayerTap, this.selectedPlayer});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -184,20 +146,21 @@ class _PlayerSelectPainter extends CustomPainter {
   }
 
   void _drawPlayer(Canvas canvas, Size size, Player player) {
-    double rowSize = (size.height / 12);
-    double colSize = (size.width / 12);
+    bool selected = player.number == selectedPlayer?.number;
+    double rowSize = (size.width / 12);
+    double colSize = (size.height / 12);
 
     //calculate offset based on imaginary grid
     Offset position = Offset((rowSize * (_getGridPosition(player)['col'] ?? 0)),
         (colSize * (_getGridPosition(player)['row'] ?? 0)));
 
     _playerPositions[player] = position;
-    _playerPaint.color = Colors.blue;
-    canvas.drawCircle(position, rowSize * 0.8, _playerPaint);
+    _playerPaint.color = selected ? Colors.red : Colors.blue;
+    canvas.drawCircle(position, colSize * (selected ? 1 : 0.8), _playerPaint);
 
     _textPainter.text = TextSpan(
       text: player.number,
-      style: TextStyle(fontSize: 12, color: Colors.white),
+      style: const TextStyle(fontSize: 12, color: Colors.white),
     );
 
     _textPainter.layout();

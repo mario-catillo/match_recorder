@@ -235,7 +235,7 @@ class GamePhaseSwitch extends StatelessWidget {
       child: Consumer<AppState>(builder: (ctx, appState, _) {
         return Container(
             color: stopwatchState.gameStatus == gameStatus
-                ? gameStatus == GameStatus.attack
+                ? gameStatus == GameStatus.defense
                     ? Colors.red
                     : Colors.green
                 : Colors.grey[800],
@@ -247,10 +247,12 @@ class GamePhaseSwitch extends StatelessWidget {
                       : stopwatchState.defenseTime,
                   second: stopwatchState.currentDuration,
                   builder: (ctx, time, duration, child) {
-                    int percentage = duration == Duration.zero ||
-                            time == Duration.zero
-                        ? 0
-                        : ((time.inSeconds / duration.inSeconds) * 100).ceil();
+                    double percentage =
+                        ((time.inSeconds / duration.inSeconds) * 100);
+                    if (percentage.isNaN) {
+                      percentage = 0;
+                    }
+                    percentage = percentage.roundToDouble();
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
