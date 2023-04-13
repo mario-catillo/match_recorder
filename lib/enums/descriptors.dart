@@ -4,7 +4,7 @@ enum Descriptors {
   speed,
   kickType,
   breakType,
-  conversion,
+  goalKick,
   lineResult,
   turnover,
   result,
@@ -30,11 +30,21 @@ enum Infraction {
 
 enum Speed { slow, fast }
 
-enum KickType { upAndUnder, box, crossKick, punt, drop, grubber, chip, touche }
+enum KickType {
+  upAndUnder,
+  box,
+  crossed,
+  punt,
+  drop,
+  grubber,
+  chip,
+  touche,
+  goal
+}
 
 enum BreakType { individual, sequence, numbers, kick }
 
-enum Conversion { converted, failed }
+enum GoalKick { good, failed, none }
 //manca evento
 
 enum LineResult { clean, dirty, notStraight, lost }
@@ -52,3 +62,5 @@ enum LinePosition { A, B, C, D, E, other }
 enum TackleShoulder { internal, external, double }
 
 enum CardStatus { yellow, red, none }
+
+enum PlayStatus { attack, defense, none }

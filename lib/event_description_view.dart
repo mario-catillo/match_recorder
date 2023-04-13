@@ -6,7 +6,9 @@ import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/events/lineout_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
+import 'package:match_recorder/models/events/maul_event.dart';
 import 'package:match_recorder/team_page.dart';
+import 'package:match_recorder/models/team.dart';
 import 'package:match_recorder/widgets/descriptors/cardstatus_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/infraction_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/kick_type_descriptor.dart';
@@ -20,6 +22,7 @@ import 'package:match_recorder/widgets/descriptors/turnover_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/result_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/breaktype_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/tackle_shoulder_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/goalkick_descriptor.dart';
 import 'package:match_recorder/widgets/players_select.dart';
 import 'package:match_recorder/widgets/descriptors/points_descriptor.dart';
 import 'package:match_recorder/widgets/rugby_field/rugby_field.dart';
@@ -53,6 +56,7 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
 
   @override
   Widget build(BuildContext context) {
+    Team team = context.read<AppState>().getTeam(event.teamType);
     return Scaffold(
       appBar: AppBar(
         title: Text("${event.getEventName()} description"),
@@ -74,16 +78,29 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
             },
             groupValue: event.teamType,
           ),
-          for (var entry in event.getPlayers().entries)
-            PlayerSelect(
-                teamType: event.teamType,
-                hintText: entry.key,
-                selectedPlayer: event.getPlayer(entry.key),
-                onPlayerChanged: (Player player) {
-                  setState(() {
-                    event.setPlayer(entry.key, player);
-                  });
-                }),
+          // for (var entry in event.getPlayers().entries)
+          // PlayerSelect(
+          //     teamType: event.teamType,
+          //     hintText: entry.key,
+          //     selectedPlayer: event.getPlayer(entry.key),
+          //     onPlayerChanged: (Player player) {
+          //       setState(() {
+          //         event.setPlayer(entry.key, player);
+          //       });
+          //     }),
+
+          LayoutBuilder(
+            builder: (BuildContext ctx, BoxConstraints constraints) => SizedBox(
+                width: constraints.maxWidth,
+                height: constraints.maxWidth * 0.55,
+                child: PlayerSelect(
+                  players: team.players,
+                  onPlayerTap: (player) {
+                    (player);
+                  },
+                )),
+          ),
+
           // if (event is ScrumEvent)
           //   Row(
           //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -205,6 +222,17 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                     event.setDescriptorValue<KickType>(kickType);
                   });
                 }),
+
+          if (event.getDescriptors().contains(Descriptors.goalKick))
+            if (event.getDescriptorValue<KickType>() == KickType.goal)
+              GoalKickDescriptor(
+                goalKick: event.getDescriptorValue<GoalKick>(),
+                onGoalKickChanged: (GoalKick goalKick) {
+                  setState(() {
+                    event.setDescriptorValue<GoalKick>(goalKick);
+                  });
+                },
+              ),
           if (event.getDescriptors().contains(Descriptors.breakType))
             BreakEnDescriptor(
                 breaktype: event.getDescriptorValue<BreakType>(),

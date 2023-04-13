@@ -8,19 +8,23 @@ class KickEvent extends BaseEvent {
   KickEvent({required Duration duration})
       : super(name: 'Kick', duration: duration);
   KickType kickType = KickType.upAndUnder;
+  GoalKick goalKick = GoalKick.none;
   Player? kicker;
   @override
   String getEventName() => 'Kick';
 
   @override
   List<Descriptors> getDescriptors() {
-    return [Descriptors.kickType];
+    return [Descriptors.kickType, Descriptors.goalKick];
   }
 
   @override
   T getDescriptorValue<T>() {
     if (T == KickType) {
       return kickType as T;
+    }
+    if (T == GoalKick) {
+      return goalKick as T;
     }
     throw UnimplementedError();
   }
@@ -29,6 +33,9 @@ class KickEvent extends BaseEvent {
   setDescriptorValue<T>(T value) {
     if (T == KickType) {
       kickType = value as KickType;
+    }
+    if (T == GoalKick) {
+      goalKick = value as GoalKick;
     }
   }
 

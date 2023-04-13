@@ -4,7 +4,7 @@ import 'package:match_recorder/enums/descriptors.dart';
 class LineResultnDescriptor extends StatelessWidget {
   final LineResult lineResult;
   final Function(LineResult progress) onLineResultChanged;
-  final double _kItemExtent = 32.0;
+  // final double _kItemExtent = 32.0;
   const LineResultnDescriptor(
       {Key? key, required this.lineResult, required this.onLineResultChanged})
       : super(key: key);

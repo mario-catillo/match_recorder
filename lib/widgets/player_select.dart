@@ -6,46 +6,52 @@ import 'package:match_recorder/team_page.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+// class PlayerSelect extends StatelessWidget {
+//   final TeamType teamType;
+//   final Player? selectedPlayer;
+//   final String hintText;
+//   final void Function(Player player) onPlayerChanged;
+
+//   PlayerSelect({
+//     required this.teamType,
+//     required this.onPlayerChanged,
+//     required this.hintText,
+//     this.selectedPlayer,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Team team = context.read<AppState>().getTeam(teamType);
+//     return Row(
+//       children: [
+//         Text(hintText),
+//         TextButton(
+//           child: Text(selectedPlayer?.name ?? 'Select'),
+//           onPressed: () => showDialog(
+//               context: context,
+//               builder: (ctx) => _PlayerSelectDialog(
+//                     players: team.players,
+//                     onPlayerTap: (player) {
+//                       onPlayerChanged(player);
+//                       Navigator.of(ctx).pop();
+//                     },
+//                   )),
+//         ),
+//         _PlayerSelectDialog(
+//           players: team.players,
+//           onPlayerTap: (player) {
+//             onPlayerChanged(player);
+//           },
+//         )
+//       ],
+//     );
+//   }
+// }
+
 class PlayerSelect extends StatelessWidget {
-  final TeamType teamType;
-  final Player? selectedPlayer;
-  final String hintText;
-  final void Function(Player player) onPlayerChanged;
-
-  PlayerSelect({
-    required this.teamType,
-    required this.onPlayerChanged,
-    required this.hintText,
-    this.selectedPlayer,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Team team = context.read<AppState>().getTeam(teamType);
-    return Row(
-      children: [
-        Text(hintText),
-        TextButton(
-          child: Text(selectedPlayer?.name ?? 'Select'),
-          onPressed: () => showDialog(
-              context: context,
-              builder: (ctx) => _PlayerSelectDialog(
-                    players: team.players,
-                    onPlayerTap: (player) {
-                      onPlayerChanged(player);
-                      Navigator.of(ctx).pop();
-                    },
-                  )),
-        )
-      ],
-    );
-  }
-}
-
-class _PlayerSelectDialog extends StatelessWidget {
   final List<Player> players;
   final Function(Player player) onPlayerTap;
-  _PlayerSelectDialog({required this.players, required this.onPlayerTap});
+  PlayerSelect({required this.players, required this.onPlayerTap});
 
   @override
   Widget build(BuildContext context) {
