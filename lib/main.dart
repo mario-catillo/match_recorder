@@ -13,7 +13,7 @@ import 'package:match_recorder/widgets/saves/save_match_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-// import 'package:match_recorder/widgets/player_stats.dart';
+import 'package:match_recorder/widgets/player_stats.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -220,47 +220,75 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// class MyChartWidget extends StatelessWidget {
-//   final List<PlayerStatsData> data;
+List<PlayerStatsData> data = [
+  PlayerStatsData(
+      playerName: 'Jugador 1',
+      tackles: 10,
+      advance: 50,
+      advanceColor: charts.MaterialPalette.green.shadeDefault),
+  PlayerStatsData(
+      playerName: 'Jugador 2',
+      tackles: 8,
+      advance: 60,
+      advanceColor: charts.MaterialPalette.blue.shadeDefault),
+  PlayerStatsData(
+      playerName: 'Jugador 3',
+      tackles: 12,
+      advance: 40,
+      advanceColor: charts.MaterialPalette.red.shadeDefault),
+  PlayerStatsData(
+      playerName: 'Jugador 4',
+      tackles: 6,
+      advance: 70,
+      advanceColor: charts.MaterialPalette.deepOrange.shadeDefault),
+  PlayerStatsData(
+      playerName: 'Jugador 5',
+      tackles: 14,
+      advance: 30,
+      advanceColor: charts.MaterialPalette.purple.shadeDefault),
+];
 
-//   MyChartWidget({required this.data});
+class MyChartWidget extends StatelessWidget {
+  final List<PlayerStatsData> data;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 300,
-//       padding: EdgeInsets.all(16),
-//       child: charts.BarChart(
-//         _createSeriesData(),
-//         animate: true,
-//         barGroupingType: charts.BarGroupingType.grouped,
-//         behaviors: [
-//           charts.SeriesLegend(
-//             position: charts.BehaviorPosition.bottom,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
+  MyChartWidget({required this.data});
 
-//   List<charts.Series<PlayerStatsData, String>> _createSeriesData() {
-//     return [
-//       charts.Series<PlayerStatsData, String>(
-//         id: 'Tackles',
-//         data: data,
-//         domainFn: (PlayerStatsData stats, _) => stats.playerName,
-//         measureFn: (PlayerStatsData stats, _) => stats.tackles,
-//       ),
-//       charts.Series<PlayerStatsData, String>(
-//         id: 'Advance',
-//         data: data,
-//         domainFn: (PlayerStatsData stats, _) => stats.playerName,
-//         measureFn: (PlayerStatsData stats, _) => stats.advance,
-//         colorFn: (PlayerStatsData stats, _) => stats.advanceColor,
-//       ),
-//     ];
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      padding: EdgeInsets.all(16),
+      child: charts.BarChart(
+        _createSeriesData(),
+        animate: true,
+        barGroupingType: charts.BarGroupingType.grouped,
+        behaviors: [
+          charts.SeriesLegend(
+            position: charts.BehaviorPosition.bottom,
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<charts.Series<PlayerStatsData, String>> _createSeriesData() {
+    return [
+      charts.Series<PlayerStatsData, String>(
+        id: 'Tackles',
+        data: data,
+        domainFn: (PlayerStatsData stats, _) => stats.playerName,
+        measureFn: (PlayerStatsData stats, _) => stats.tackles,
+      ),
+      charts.Series<PlayerStatsData, String>(
+        id: 'Advance',
+        data: data,
+        domainFn: (PlayerStatsData stats, _) => stats.playerName,
+        measureFn: (PlayerStatsData stats, _) => stats.advance,
+        colorFn: (PlayerStatsData stats, _) => stats.advanceColor,
+      ),
+    ];
+  }
+}
 
 class GamePhaseSwitch extends StatelessWidget {
   final StopwatchState stopwatchState;
