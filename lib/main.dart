@@ -11,6 +11,9 @@ import 'package:match_recorder/widgets/misc/value_listenable_builder2.dart';
 import 'package:match_recorder/widgets/saves/load_match_dialog.dart';
 import 'package:match_recorder/widgets/saves/save_match_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+// import 'package:match_recorder/widgets/player_stats.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -216,6 +219,48 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// class MyChartWidget extends StatelessWidget {
+//   final List<PlayerStatsData> data;
+
+//   MyChartWidget({required this.data});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 300,
+//       padding: EdgeInsets.all(16),
+//       child: charts.BarChart(
+//         _createSeriesData(),
+//         animate: true,
+//         barGroupingType: charts.BarGroupingType.grouped,
+//         behaviors: [
+//           charts.SeriesLegend(
+//             position: charts.BehaviorPosition.bottom,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   List<charts.Series<PlayerStatsData, String>> _createSeriesData() {
+//     return [
+//       charts.Series<PlayerStatsData, String>(
+//         id: 'Tackles',
+//         data: data,
+//         domainFn: (PlayerStatsData stats, _) => stats.playerName,
+//         measureFn: (PlayerStatsData stats, _) => stats.tackles,
+//       ),
+//       charts.Series<PlayerStatsData, String>(
+//         id: 'Advance',
+//         data: data,
+//         domainFn: (PlayerStatsData stats, _) => stats.playerName,
+//         measureFn: (PlayerStatsData stats, _) => stats.advance,
+//         colorFn: (PlayerStatsData stats, _) => stats.advanceColor,
+//       ),
+//     ];
+//   }
+// }
 
 class GamePhaseSwitch extends StatelessWidget {
   final StopwatchState stopwatchState;
