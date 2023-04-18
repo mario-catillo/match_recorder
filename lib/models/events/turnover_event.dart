@@ -5,11 +5,11 @@ import 'package:match_recorder/models/player.dart';
 class TurnoverEvent extends BaseEvent {
   Turnover turnover = Turnover.knockOn;
   TurnoverEvent({required Duration duration})
-      : super(name: 'Turnover', duration: duration);
+      : super(name: 'Turnover (lost)', duration: duration);
   Player? turnoverPlayer;
 
   @override
-  String getEventName() => 'Turnover';
+  String getEventName() => 'Turnover (lost)';
 
   @override
   List<Descriptors> getDescriptors() {

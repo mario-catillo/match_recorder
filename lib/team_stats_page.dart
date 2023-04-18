@@ -34,8 +34,11 @@ class TeamStatsPage extends StatelessWidget {
                 vertical: true,
                 barGroupingType: charts.BarGroupingType.stacked,
                 barRendererDecorator: charts.BarLabelDecorator(
-                    labelAnchor: charts.BarLabelAnchor.middle,
-                    labelPosition: charts.BarLabelPosition.inside),
+                  insideLabelStyleSpec:
+                      charts.TextStyleSpec(color: charts.MaterialPalette.black),
+                  labelAnchor: charts.BarLabelAnchor.middle,
+                  labelPosition: charts.BarLabelPosition.inside,
+                ),
                 domainAxis: charts.OrdinalAxisSpec(
                   renderSpec: charts.SmallTickRendererSpec(
                     labelRotation: 60,
@@ -68,6 +71,8 @@ class TeamStatsPage extends StatelessWidget {
                 vertical: true,
                 barGroupingType: charts.BarGroupingType.stacked,
                 barRendererDecorator: charts.BarLabelDecorator(
+                    insideLabelStyleSpec: charts.TextStyleSpec(
+                        color: charts.MaterialPalette.black),
                     labelAnchor: charts.BarLabelAnchor.middle,
                     labelPosition: charts.BarLabelPosition.inside),
                 domainAxis: charts.OrdinalAxisSpec(

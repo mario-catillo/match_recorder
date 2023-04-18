@@ -20,6 +20,7 @@ import 'package:match_recorder/widgets/descriptors/line_position_descriptor.dart
 import 'package:match_recorder/widgets/descriptors/line_quantity_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/turnover_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/result_descriptor.dart';
+import 'package:match_recorder/widgets/descriptors/restart_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/breaktype_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/tackle_shoulder_descriptor.dart';
 import 'package:match_recorder/widgets/descriptors/goalkick_descriptor.dart';
@@ -156,6 +157,14 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                   onResultChanged: (Result result) {
                     setState(() {
                       event.setDescriptorValue<Result>(result);
+                    });
+                  }),
+            if (event.getDescriptors().contains(Descriptors.result))
+              RestartTypenDescriptor(
+                  restartType: event.getDescriptorValue<RestartType>(),
+                  onrestartTypeChanged: (RestartType restartType) {
+                    setState(() {
+                      event.setDescriptorValue<RestartType>(restartType);
                     });
                   }),
             if (event

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/event_description_view.dart';
 import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/events/infraction_event.dart';
 import 'package:match_recorder/models/events/kick_event.dart';
+import 'package:match_recorder/models/events/restart_event.dart';
 import 'package:match_recorder/models/events/ruck_event.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/models/events/turnover_event.dart';
@@ -37,6 +39,15 @@ class MainEventButtons extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 4,
       children: [
+        MaterialButton(
+          onPressed: () => _onEventPressed(
+              context,
+              RestartEvent(
+                  duration:
+                      context.read<StopwatchState>().currentDuration.value)),
+          color: Colors.blue.shade400,
+          child: const Text('Kick off / Restart'),
+        ),
         EventButton(
           name: 'Tackle',
           buttoncolor: Colors.green.shade800,
@@ -89,7 +100,7 @@ class MainEventButtons extends StatelessWidget {
                   duration:
                       context.read<StopwatchState>().currentDuration.value)),
           color: Colors.orange.shade400,
-          child: const Text('Turnover'),
+          child: const Text('Turnover (lost)'),
         ),
         EventButton(
             name: 'Infraction',

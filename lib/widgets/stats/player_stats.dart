@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:match_recorder/enums/descriptors.dart';
+import 'package:match_recorder/models/app_state.dart';
+import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/team_page.dart';
+import 'package:provider/provider.dart';
 
 class PlayerDataTackles {
   final String name;
