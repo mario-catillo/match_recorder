@@ -24,7 +24,6 @@ class EventButton extends StatelessWidget {
       color: color,
       child: Column(
         children: [
-          if (curIcon != null) Image.asset(curIcon, width: 50, height: 50),
           Text(name),
         ],
       ),

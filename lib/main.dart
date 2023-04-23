@@ -6,6 +6,7 @@ import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/YellowCardPlayer.dart';
 import 'package:match_recorder/widgets/events_list.dart';
+import 'package:match_recorder/widgets/game_phase_switch.dart';
 import 'package:match_recorder/widgets/match_timer.dart';
 import 'package:match_recorder/widgets/misc/value_listenable_builder2.dart';
 import 'package:match_recorder/widgets/saves/load_match_dialog.dart';
@@ -80,10 +81,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey,
+
+        title: Text("test"),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        //create an appbar bottom to contain the stopwatchBar widget
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(70), child: StopwatchBar()),
       ),
+      //a custom bottom navigation bar to contain the game phase switch and the match timer
+
       drawer: Drawer(
         child: Column(
           children: [
@@ -157,173 +165,68 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child: MainEventButtons()),
-            Consumer<AppState>(builder: (ctx, appState, child) {
-              return Expanded(
-                  child: ListView.builder(
-                itemBuilder: (ctx, index) {
-                  final player =
-                      appState.yellowCardPlayers.entries.toList()[index].key;
-                  final infractionTime = appState.yellowCardPlayers[player]!;
-                  return YellowCardPlayer(
-                      player: player, infractionTime: infractionTime);
-                },
-                itemCount: appState.yellowCardPlayers.entries.length,
-              ));
-            }),
-            SafeArea(
-              child: Consumer<StopwatchState>(
-                  builder: (ctx, stopwatchState, child) {
-                return Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GamePhaseSwitch(
-                            gameStatus: GameStatus.defense,
-                            stopwatchState: stopwatchState,
-                          ),
-                        ),
-                        Expanded(
-                          child: GamePhaseSwitch(
-                            gameStatus: GameStatus.nullTime,
-                            stopwatchState: stopwatchState,
-                          ),
-                        ),
-                        Expanded(
-                          child: GamePhaseSwitch(
-                            gameStatus: GameStatus.attack,
-                            stopwatchState: stopwatchState,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () => stopwatchState.isRunning()
-                                ? context.read<StopwatchState>().stop()
-                                : context.read<StopwatchState>().start(),
-                            icon: stopwatchState.isRunning()
-                                ? const Icon(Icons.pause)
-                                : const Icon(Icons.play_arrow)),
-                        const MatchTimer(),
-                        if (stopwatchState.currentDuration.value !=
-                            Duration.zero)
-                          IconButton(
-                              onPressed: () {
-                                stopwatchState.reset();
-                              },
-                              icon: const Icon(Icons.refresh)),
-                      ],
-                    ),
-                  ],
-                );
-              }),
-            ),
-          ],
-        ),
-      ),
+      body: MainEventButtons(),
     );
   }
 }
 
-class GamePhaseSwitch extends StatelessWidget {
-  final StopwatchState stopwatchState;
-  final GameStatus gameStatus;
-  const GamePhaseSwitch({
+class StopwatchBar extends StatelessWidget {
+  const StopwatchBar({
     super.key,
-    required this.stopwatchState,
-    required this.gameStatus,
   });
 
   @override
   Widget build(BuildContext context) {
-    Map<GameStatus, String> gameStatusMap = {
-      GameStatus.attack: "Attacco",
-      GameStatus.defense: "Difesa",
-      GameStatus.nullTime: "Fermo"
-    };
-    Map<GameStatus, Color> gameStatusColor = {
-      GameStatus.attack: Colors.green,
-      GameStatus.defense: Colors.red,
-      GameStatus.nullTime: Colors.grey
-    };
-    Map<GameStatus, Function> actions = {
-      GameStatus.attack: () => stopwatchState.setAttackTime(),
-      GameStatus.defense: () => stopwatchState.setDefenseTime(),
-      GameStatus.nullTime: () => stopwatchState.setNullTime(),
-    };
-    Map<GameStatus, ValueNotifier> durations = {
-      GameStatus.attack: stopwatchState.attackTime,
-      GameStatus.defense: stopwatchState.defenseTime,
-      GameStatus.nullTime: stopwatchState.nullTime,
-    };
-    return GestureDetector(
-      onTap: () => actions[gameStatus]!(),
-      child: Consumer<AppState>(builder: (ctx, appState, _) {
-        return Container(
-            color: stopwatchState.gameStatus == gameStatus
-                ? gameStatusColor[gameStatus]
-                : Colors.grey[800],
-            child: Column(children: [
-              Text(gameStatusMap[gameStatus] ?? '?',
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w200)),
-              ValueListenableBuilder2(
-                  first: durations[gameStatus]!,
-                  second: stopwatchState.currentDuration,
-                  builder: (ctx, time, duration, child) {
-                    double percentage =
-                        ((time.inSeconds / duration.inSeconds) * 100);
-                    if (percentage.isNaN) {
-                      percentage = 0;
-                    }
-                    percentage = percentage.roundToDouble();
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                            " ${time.inMinutes.toString().padLeft(2, '0')}:${(time.inSeconds % 60).toString().padLeft(2, '0')}",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w200)),
-                        const SizedBox(width: 10),
-                        Text(
-                          "$percentage%",
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    );
-                  })
-            ]));
+    return SafeArea(
+      child: Consumer<StopwatchState>(builder: (ctx, stopwatchState, child) {
+        return SizedBox(
+          height: 90,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: GamePhaseSwitch(
+                      gameStatus: GameStatus.defense,
+                      stopwatchState: stopwatchState,
+                    ),
+                  ),
+                  Expanded(
+                    child: GamePhaseSwitch(
+                      gameStatus: GameStatus.nullTime,
+                      stopwatchState: stopwatchState,
+                    ),
+                  ),
+                  Expanded(
+                    child: GamePhaseSwitch(
+                      gameStatus: GameStatus.attack,
+                      stopwatchState: stopwatchState,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: () => stopwatchState.isRunning()
+                          ? context.read<StopwatchState>().stop()
+                          : context.read<StopwatchState>().start(),
+                      icon: stopwatchState.isRunning()
+                          ? const Icon(Icons.pause)
+                          : const Icon(Icons.play_arrow)),
+                  const MatchTimer(),
+                  if (stopwatchState.currentDuration.value != Duration.zero)
+                    IconButton(
+                        onPressed: () {
+                          stopwatchState.reset();
+                        },
+                        icon: const Icon(Icons.refresh)),
+                ],
+              ),
+            ],
+          ),
+        );
       }),
     );
   }

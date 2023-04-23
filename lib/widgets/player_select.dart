@@ -3,12 +3,14 @@ import 'package:match_recorder/models/player.dart';
 
 class PlayerSelect extends StatelessWidget {
   final List<Player> players;
+  final List<Player> alreadySelectedPlayers;
   final Function(Player player) onPlayerTap;
   final Player? selectedPlayer;
   const PlayerSelect(
       {super.key,
       required this.players,
       required this.onPlayerTap,
+      required this.alreadySelectedPlayers,
       this.selectedPlayer});
 
   @override
@@ -24,6 +26,7 @@ class PlayerSelect extends StatelessWidget {
                 painter: _PlayerSelectPainter(
                     players: players,
                     onPlayerTap: onPlayerTap,
+                    alreadySelectedPlayers: alreadySelectedPlayers,
                     selectedPlayer: selectedPlayer),
               ),
             ),
@@ -37,6 +40,7 @@ class PlayerSelect extends StatelessWidget {
 class _PlayerSelectPainter extends CustomPainter {
   final Paint _playerPaint = Paint()..color = Colors.blue;
   final List<Player> players;
+  final List<Player> alreadySelectedPlayers;
   final Player? selectedPlayer;
   final Paint _backgroundPaint = Paint()..color = Colors.green;
   final Map<Player, Offset> _playerPositions = {};
@@ -48,7 +52,10 @@ class _PlayerSelectPainter extends CustomPainter {
     textDirection: TextDirection.ltr,
   );
   _PlayerSelectPainter(
-      {required this.players, required this.onPlayerTap, this.selectedPlayer});
+      {required this.players,
+      required this.onPlayerTap,
+      this.selectedPlayer,
+      required this.alreadySelectedPlayers});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -155,7 +162,16 @@ class _PlayerSelectPainter extends CustomPainter {
         (colSize * (_getGridPosition(player)['row'] ?? 0)));
 
     _playerPositions[player] = position;
-    _playerPaint.color = selected ? Colors.red : Colors.blue;
+
+    bool isAlreadySelected = alreadySelectedPlayers
+        .where((selectedPlayer) => selectedPlayer.number == player.number)
+        .isNotEmpty;
+
+    _playerPaint.color = selected
+        ? Colors.red
+        : isAlreadySelected
+            ? Colors.yellow.shade800
+            : Colors.blue;
     canvas.drawCircle(position, colSize * (selected ? 1 : 0.8), _playerPaint);
 
     _textPainter.text = TextSpan(

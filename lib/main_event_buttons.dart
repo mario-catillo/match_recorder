@@ -36,118 +36,132 @@ class MainEventButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 4,
-      children: [
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              RestartEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          color: Colors.blue.shade400,
-          child: const Text('Kick off / Restart'),
-        ),
-        EventButton(
-          name: 'Tackle',
-          buttoncolor: Colors.green.shade800,
-          // icon: 'assets/icons/tackle.png',
-          onPressed: () => _onEventPressed(
-              context,
-              TackleEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-        ),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              RuckEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          color: Colors.blue.shade100,
-          child: const Text('Ruck'),
-        ),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              MissedTacklenEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          color: Colors.red.shade300,
-          child: const Text('Missed Tackle'),
-        ),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              BreakEnEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          color: Colors.green.shade600,
-          child: const Text('Break'),
-        ),
-        EventButton(
-            name: 'Kick',
-            // icon: 'assets/icons/kick.png',
+    return Center(
+      child: GridView.count(
+        //6 columns if portrait, 8 if landscape
+        crossAxisCount:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
+        shrinkWrap: true,
+        children: [
+          MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
-                KickEvent(
+                RestartEvent(
                     duration:
-                        context.read<StopwatchState>().currentDuration.value))),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              TurnoverEvent(
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.blue.shade400,
+            child: const Text('Kick off / Restart'),
+          ),
+          EventButton(
+            name: 'Tackle',
+            buttoncolor: Colors.green.shade800,
+            // icon: 'assets/icons/tackle.png',
+            onPressed: () => _onEventPressed(
+                context,
+                TackleEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+          ),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                RuckEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.blue.shade100,
+            child: const Text('Ruck'),
+          ),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                MissedTacklenEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.red.shade300,
+            child: const Text('Missed Tackle'),
+          ),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                BreakEnEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.green.shade600,
+            child: const Text('Break'),
+          ),
+          EventButton(
+              name: 'Kick',
+              // icon: 'assets/icons/kick.png',
+              onPressed: () => _onEventPressed(
+                  context,
+                  KickEvent(
+                      duration: context
+                          .read<StopwatchState>()
+                          .currentDuration
+                          .value))),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                TurnoverEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.orange.shade400,
+            child: const Text('Turnover (lost)'),
+          ),
+          EventButton(
+              name: 'Infraction',
+              buttoncolor: Colors.red.shade600,
+              // icon: 'assets/icons/referee.png',
+              onPressed: () => _onEventPressed(
+                  context,
+                  InfractionEvent(
+                      duration: context
+                          .read<StopwatchState>()
+                          .currentDuration
+                          .value))),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                LineoutEvent("5",
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.blueAccent.shade400,
+            child: const Text('Lineout'),
+          ),
+          EventButton(
+              name: 'Maul',
+              buttoncolor: Colors.lightBlue.shade400,
+              onPressed: () => _onEventPressed(
+                  context,
+                  MaulEvent(
+                      duration: context
+                          .read<StopwatchState>()
+                          .currentDuration
+                          .value))),
+          EventButton(
+            // icon: 'assets/icons/scrum.png',
+            buttoncolor: Colors.blue.shade700,
+            onPressed: () => _onEventPressed(
+                context,
+                ScrumEvent(
                   duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          color: Colors.orange.shade400,
-          child: const Text('Turnover (lost)'),
-        ),
-        EventButton(
-            name: 'Infraction',
-            buttoncolor: Colors.red.shade600,
-            // icon: 'assets/icons/referee.png',
-            onPressed: () => _onEventPressed(
-                context,
-                InfractionEvent(
-                    duration:
-                        context.read<StopwatchState>().currentDuration.value))),
-        MaterialButton(
-          onPressed: () => _onEventPressed(
-              context,
-              LineoutEvent("5",
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value)),
-          color: Colors.blueAccent.shade400,
-          child: const Text('Lineout'),
-        ),
-        EventButton(
-            name: 'Maul',
-            buttoncolor: Colors.lightBlue.shade400,
-            onPressed: () => _onEventPressed(
-                context,
-                MaulEvent(
-                    duration:
-                        context.read<StopwatchState>().currentDuration.value))),
-        EventButton(
-          // icon: 'assets/icons/scrum.png',
-          buttoncolor: Colors.blue.shade700,
-          onPressed: () => _onEventPressed(
-              context,
-              ScrumEvent(
-                duration: context.read<StopwatchState>().currentDuration.value,
-              )),
-          name: 'Scrum',
-        ),
-        EventButton(
-            name: 'Points',
-            buttoncolor: Colors.blue.shade800,
-            // icon: 'assets/icons/try.png',
-            onPressed: () => _onEventPressed(
-                context,
-                PointsEvent(
-                    duration:
-                        context.read<StopwatchState>().currentDuration.value))),
-      ],
+                      context.read<StopwatchState>().currentDuration.value,
+                )),
+            name: 'Scrum',
+          ),
+          EventButton(
+              name: 'Points',
+              buttoncolor: Colors.blue.shade800,
+              // icon: 'assets/icons/try.png',
+              onPressed: () => _onEventPressed(
+                  context,
+                  PointsEvent(
+                      duration: context
+                          .read<StopwatchState>()
+                          .currentDuration
+                          .value))),
+        ],
+      ),
     );
   }
 }

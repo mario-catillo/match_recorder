@@ -66,7 +66,7 @@ class LineoutEvent extends BaseEvent {
 
   @override
   Map<String, Player?> getPlayers() {
-    return {'thrower': thrower, 'receiver': receiver};
+    return {'receiver': receiver, 'thrower': thrower};
   }
 
   @override
