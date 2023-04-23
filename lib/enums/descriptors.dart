@@ -12,7 +12,8 @@ enum Descriptors {
   points,
   linePosition,
   tackleShoulder,
-  cardStatus
+  cardStatus,
+  restartType
 }
 
 enum MovementProgression { positive, negative, neutral }
@@ -64,3 +65,5 @@ enum TackleShoulder { internal, external, double }
 enum CardStatus { yellow, red, none }
 
 enum PlayStatus { attack, defense, none }
+
+enum RestartType { kickoff, drop22, dropingoal }

@@ -11,6 +11,10 @@ import 'package:match_recorder/widgets/misc/value_listenable_builder2.dart';
 import 'package:match_recorder/widgets/saves/load_match_dialog.dart';
 import 'package:match_recorder/widgets/saves/save_match_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:match_recorder/widgets/stats/player_stats.dart';
+import 'package:match_recorder/team_stats_page.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -125,6 +129,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                   teamType: TeamType.team2,
                                 ))),
                     child: Text("Team 2")),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TeamStatsPage(
+                                // teamType2: TeamType.team1,
+                                ))),
+                    child: Text("Team 1 Stats")),
+                SizedBox(width: 20),
+                ElevatedButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TeamStatsPage(
+                                // teamType2: TeamType.team2,
+                                ))),
+                    child: Text("Team 2 Stats")),
               ],
             ),
             Expanded(child: EventsList()),
