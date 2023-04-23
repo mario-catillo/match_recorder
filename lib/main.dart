@@ -180,6 +180,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Expanded(
                           child: GamePhaseSwitch(
+                            gameStatus: GameStatus.nullTime,
+                            stopwatchState: stopwatchState,
+                          ),
+                        ),
+                        Expanded(
+                          child: GamePhaseSwitch(
                             gameStatus: GameStatus.attack,
                             stopwatchState: stopwatchState,
                           ),
@@ -228,23 +234,41 @@ class GamePhaseSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<GameStatus, String> gameStatusMap = {
+      GameStatus.attack: "Attacco",
+      GameStatus.defense: "Difesa",
+      GameStatus.nullTime: "Fermo"
+    };
+    Map<GameStatus, Color> gameStatusColor = {
+      GameStatus.attack: Colors.green,
+      GameStatus.defense: Colors.red,
+      GameStatus.nullTime: Colors.grey
+    };
+    Map<GameStatus, Function> actions = {
+      GameStatus.attack: () => stopwatchState.setAttackTime(),
+      GameStatus.defense: () => stopwatchState.setDefenseTime(),
+      GameStatus.nullTime: () => stopwatchState.setNullTime(),
+    };
+    Map<GameStatus, ValueNotifier> durations = {
+      GameStatus.attack: stopwatchState.attackTime,
+      GameStatus.defense: stopwatchState.defenseTime,
+      GameStatus.nullTime: stopwatchState.nullTime,
+    };
     return GestureDetector(
-      onTap: () => gameStatus == GameStatus.attack
-          ? stopwatchState.setAttackTime()
-          : stopwatchState.setDefenseTime(),
+      onTap: () => actions[gameStatus]!(),
       child: Consumer<AppState>(builder: (ctx, appState, _) {
         return Container(
             color: stopwatchState.gameStatus == gameStatus
-                ? gameStatus == GameStatus.defense
-                    ? Colors.red
-                    : Colors.green
+                ? gameStatusColor[gameStatus]
                 : Colors.grey[800],
             child: Column(children: [
-              Text(gameStatus == GameStatus.attack ? "Attacco" : "Difesa"),
+              Text(gameStatusMap[gameStatus] ?? '?',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w200)),
               ValueListenableBuilder2(
-                  first: gameStatus == GameStatus.attack
-                      ? stopwatchState.attackTime
-                      : stopwatchState.defenseTime,
+                  first: durations[gameStatus]!,
                   second: stopwatchState.currentDuration,
                   builder: (ctx, time, duration, child) {
                     double percentage =
