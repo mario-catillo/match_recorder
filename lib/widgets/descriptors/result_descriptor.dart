@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class ResultnDescriptor extends StatelessWidget {
-  final Result result;
+  final Result? result;
   final Function(Result progress) onResultChanged;
   const ResultnDescriptor(
       {Key? key, required this.result, required this.onResultChanged})
@@ -21,7 +21,7 @@ class ResultnDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<Result>(
+    return CupertinoSlidingSegmentedControl<Result?>(
       children: const {
         Result.won: Text("Vinta"),
         Result.lost: Text("Persa"),

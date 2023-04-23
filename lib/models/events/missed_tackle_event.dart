@@ -16,11 +16,11 @@ class MissedTacklenEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     // if (T == MissedTackle) {
     //   return missedTackle as T;
     // }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

@@ -16,11 +16,11 @@ class PointsEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == Points) {
       return points as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

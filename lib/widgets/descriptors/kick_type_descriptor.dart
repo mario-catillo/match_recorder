@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class KickTypeDescriptor extends StatelessWidget {
-  final KickType kickType;
+  final KickType? kickType;
   final Function(KickType kickType) onKickTypeChanged;
   final double _kItemExtent = 32.0;
   const KickTypeDescriptor(
@@ -11,7 +11,7 @@ class KickTypeDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<KickType>(
+    return CupertinoSlidingSegmentedControl<KickType?>(
       children: const {
         KickType.upAndUnder: Text('Up & under'),
         KickType.box: Text('Box'),

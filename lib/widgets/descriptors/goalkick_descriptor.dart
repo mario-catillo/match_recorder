@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class GoalKickDescriptor extends StatelessWidget {
-  final GoalKick goalKick;
+  final GoalKick? goalKick;
   final Function(GoalKick goalKick) onGoalKickChanged;
   const GoalKickDescriptor(
       {Key? key, required this.goalKick, required this.onGoalKickChanged})
@@ -10,7 +10,7 @@ class GoalKickDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<GoalKick>(
+    return CupertinoSlidingSegmentedControl<GoalKick?>(
       children: const {
         GoalKick.good: Text('Good'),
         GoalKick.failed: Text('Failed'),

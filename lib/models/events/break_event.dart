@@ -17,11 +17,11 @@ class BreakEnEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == BreakType) {
       return breaktype as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

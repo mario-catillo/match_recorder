@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class RestartTypenDescriptor extends StatelessWidget {
-  final RestartType restartType;
+  final RestartType? restartType;
   final Function(RestartType restartType) onrestartTypeChanged;
   const RestartTypenDescriptor(
       {Key? key, required this.restartType, required this.onrestartTypeChanged})
@@ -10,7 +10,7 @@ class RestartTypenDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<RestartType>(
+    return CupertinoSlidingSegmentedControl<RestartType?>(
       children: const {
         RestartType.kickoff: Text('Kick off'),
         RestartType.drop22: Text('Drop 22'),

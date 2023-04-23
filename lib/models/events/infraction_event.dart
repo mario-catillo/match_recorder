@@ -21,7 +21,7 @@ class InfractionEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == Infraction) {
       return infraction as T;
     }
@@ -29,7 +29,7 @@ class InfractionEvent extends BaseEvent {
       return cardStatus as T;
     }
 
-    throw UnimplementedError();
+    return null;
   }
 
   @override

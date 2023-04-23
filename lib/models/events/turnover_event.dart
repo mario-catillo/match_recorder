@@ -17,11 +17,11 @@ class TurnoverEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == Turnover) {
       return turnover as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

@@ -20,14 +20,14 @@ class ScrumEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == MovementProgression) {
       return progress as T;
     }
     if (T == Result) {
       return result as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

@@ -19,11 +19,11 @@ class RestartEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == RestartType) {
       return restartType as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

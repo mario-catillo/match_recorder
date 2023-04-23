@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class InfractionnDescriptor extends StatelessWidget {
-  final Infraction infraction;
+  final Infraction? infraction;
   final Function(Infraction progress) onInfractionChanged;
   // final double _kItemExtent = 32.0;
   const InfractionnDescriptor(
@@ -11,7 +11,7 @@ class InfractionnDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<Infraction>(
+    return CupertinoSlidingSegmentedControl<Infraction?>(
       children: const {
         Infraction.dirtyPlay: Text('Sporco'),
         Infraction.ruckAttack: Text('Ruck Att'),

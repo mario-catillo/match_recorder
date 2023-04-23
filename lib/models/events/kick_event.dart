@@ -19,14 +19,14 @@ class KickEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == KickType) {
       return kickType as T;
     }
     if (T == GoalKick) {
       return goalKick as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

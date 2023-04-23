@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class TurnovernDescriptor extends StatelessWidget {
-  final Turnover turnover;
+  final Turnover? turnover;
   final Function(Turnover turnover) onTurnoverChanged;
   const TurnovernDescriptor(
       {Key? key, required this.turnover, required this.onTurnoverChanged})
@@ -10,7 +10,7 @@ class TurnovernDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<Turnover>(
+    return CupertinoSlidingSegmentedControl<Turnover?>(
       children: const {
         Turnover.blocked: Text('Bloccata'),
         Turnover.jackal: Text('Jackal'),

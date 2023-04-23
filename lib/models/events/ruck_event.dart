@@ -17,14 +17,14 @@ class RuckEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == Speed) {
       return speed as T;
     }
     // if (T == MovementProgression) {
     //   return progress as T;
     // }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

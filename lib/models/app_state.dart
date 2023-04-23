@@ -142,4 +142,17 @@ class AppState with ChangeNotifier implements Serializable {
         .toList()
         .cast<BaseEvent>();
   }
+
+  void saveCsv() async {
+    String csv = "";
+    int progressive = 0;
+    events.forEach((element) {
+      csv += "${element.toCsv(progressive, this)}\n";
+      progressive++;
+    });
+
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/match.csv');
+    file.writeAsString(csv);
+  }
 }

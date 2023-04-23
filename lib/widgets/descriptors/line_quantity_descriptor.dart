@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class LineQuantitynDescriptor extends StatelessWidget {
-  final LineQuantity lineQuantity;
+  final LineQuantity? lineQuantity;
   final Function(LineQuantity progress) onLineQuantityChanged;
   final double _kItemExtent = 32.0;
   const LineQuantitynDescriptor(
@@ -34,7 +34,7 @@ class LineQuantitynDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<LineQuantity>(
+    return CupertinoSlidingSegmentedControl<LineQuantity?>(
       children: const {
         LineQuantity.seven: Text("7"),
         LineQuantity.six: Text("6"),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class BreakEnDescriptor extends StatelessWidget {
-  final BreakType breaktype;
+  final BreakType? breaktype;
   final Function(BreakType breaktype) onBreakEChanged;
   const BreakEnDescriptor(
       {Key? key, required this.breaktype, required this.onBreakEChanged})
@@ -10,7 +10,7 @@ class BreakEnDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<BreakType>(
+    return CupertinoSlidingSegmentedControl<BreakType?>(
       children: const {
         BreakType.individual: Text('Individual'),
         BreakType.kick: Text('Kick'),

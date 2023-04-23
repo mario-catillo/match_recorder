@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class ProgressionDescriptor extends StatelessWidget {
-  final MovementProgression progress;
+  final MovementProgression? progress;
   final Function(MovementProgression progress) onProgressChanged;
   const ProgressionDescriptor(
       {Key? key, required this.progress, required this.onProgressChanged})
@@ -10,7 +10,7 @@ class ProgressionDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<MovementProgression>(
+    return CupertinoSlidingSegmentedControl<MovementProgression?>(
       children: const {
         MovementProgression.negative: Text('Negativo'),
         MovementProgression.neutral: Text('Neutro'),

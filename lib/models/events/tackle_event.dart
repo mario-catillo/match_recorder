@@ -20,14 +20,14 @@ class TackleEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == MovementProgression) {
       return progress as T;
     }
     if (T == TackleShoulder) {
       return tackleShoulder as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

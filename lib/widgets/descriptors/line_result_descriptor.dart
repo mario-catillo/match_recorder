@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class LineResultnDescriptor extends StatelessWidget {
-  final LineResult lineResult;
+  final LineResult? lineResult;
   final Function(LineResult progress) onLineResultChanged;
   // final double _kItemExtent = 32.0;
   const LineResultnDescriptor(
@@ -25,7 +25,7 @@ class LineResultnDescriptor extends StatelessWidget {
   // }
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<LineResult>(
+    return CupertinoSlidingSegmentedControl<LineResult?>(
       children: const {
         LineResult.clean: Text("Pulita"),
         LineResult.dirty: Text("Sporca"),

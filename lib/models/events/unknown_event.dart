@@ -14,8 +14,8 @@ class UnknownEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
-    throw UnimplementedError();
+  T? getDescriptorValue<T>() {
+    return null;
   }
 
   @override

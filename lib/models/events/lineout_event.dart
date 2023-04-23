@@ -38,7 +38,7 @@ class LineoutEvent extends BaseEvent {
   }
 
   @override
-  T getDescriptorValue<T>() {
+  T? getDescriptorValue<T>() {
     if (T == LineResult) {
       return lineResult as T;
     }
@@ -48,7 +48,7 @@ class LineoutEvent extends BaseEvent {
     if (T == LinePosition) {
       return lineoutPosition as T;
     }
-    throw UnimplementedError();
+    return null;
   }
 
   @override

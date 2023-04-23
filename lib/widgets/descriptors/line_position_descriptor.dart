@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 
 class LinePositionnDescriptor extends StatelessWidget {
-  final LinePosition linePosition;
+  final LinePosition? linePosition;
   final Function(LinePosition linePosition) onLinePositionChanged;
   const LinePositionnDescriptor(
       {Key? key,
@@ -12,7 +12,7 @@ class LinePositionnDescriptor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<LinePosition>(
+    return CupertinoSlidingSegmentedControl<LinePosition?>(
       children: const {
         LinePosition.A: Text('0-30'),
         LinePosition.D: Text('15,5'),
