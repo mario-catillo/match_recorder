@@ -161,6 +161,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("Team 2 Stats")),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: () async {
+                      context.read<AppState>().saveCsv();
+                      Navigator.pop(context, true);
+                    },
+                    child: const Text("Export csv file"))
+              ],
+            ),
             Expanded(child: EventsList()),
           ],
         ),

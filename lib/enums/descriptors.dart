@@ -1,19 +1,19 @@
 enum Descriptors {
+  restartType,
   movementProgression,
-  infraction,
-  speed,
-  kickType,
-  breakType,
-  goalKick,
-  lineResult,
-  turnover,
-  result,
-  lineQuantity,
-  points,
-  linePosition,
   tackleShoulder,
+  turnover,
+  infraction,
   cardStatus,
-  restartType
+  kickType,
+  goalKick,
+  result,
+  lineResult,
+  lineQuantity,
+  linePosition,
+  points,
+  breakType,
+  speed,
 }
 
 enum MovementProgression { positive, negative, neutral }

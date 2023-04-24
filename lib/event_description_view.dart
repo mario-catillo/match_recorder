@@ -103,7 +103,7 @@ class _EventDescriptionViewState extends State<EventDescriptionView> {
                             event.setDescriptorValue<Result>(result);
                           });
                         }),
-                  if (event.getDescriptors().contains(Descriptors.result))
+                  if (event.getDescriptors().contains(Descriptors.restartType))
                     RestartTypenDescriptor(
                         restartType: event.getDescriptorValue<RestartType>(),
                         onrestartTypeChanged: (RestartType restartType) {
@@ -268,9 +268,18 @@ class MultiPlayerSelectWidget extends StatefulWidget {
 class _MultiPlayerSelectWidgetState extends State<MultiPlayerSelectWidget> {
   late String selectedPlayerKey;
 
+  // @override
+  // void initState() {
+  //   selectedPlayerKey = widget.event.getPlayers().keys.first;
+  //   super.initState();
+  // }
+
   @override
   void initState() {
-    selectedPlayerKey = widget.event.getPlayers().keys.first;
+    if (widget.event.getPlayers() != null &&
+        widget.event.getPlayers().isNotEmpty) {
+      selectedPlayerKey = widget.event.getPlayers().keys.first;
+    }
     super.initState();
   }
 

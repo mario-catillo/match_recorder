@@ -8,7 +8,7 @@ class KickEvent extends BaseEvent {
   KickEvent({required Duration duration})
       : super(name: 'Kick', duration: duration);
   KickType kickType = KickType.upAndUnder;
-  GoalKick goalKick = GoalKick.none;
+  GoalKick? goalKick = GoalKick.none;
   Player? kicker;
   @override
   String getEventName() => 'Kick';
