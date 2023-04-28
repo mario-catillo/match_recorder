@@ -199,7 +199,7 @@ class StopwatchBar extends StatelessWidget {
     return SafeArea(
       child: Consumer<StopwatchState>(builder: (ctx, stopwatchState, child) {
         return SizedBox(
-          height: 90,
+          height: 85,
           child: Column(
             children: [
               Row(
