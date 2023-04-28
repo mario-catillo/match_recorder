@@ -12,9 +12,9 @@ class CardstatusDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<CardStatus?>(
       children: const {
-        CardStatus.none: Text('Nessuno'),
-        CardStatus.yellow: Text('Giallo'),
-        CardStatus.red: Text('Rosso'),
+        CardStatus.none: Text('No card'),
+        CardStatus.yellow: Text('Yellow'),
+        CardStatus.red: Text('Red'),
       },
       onValueChanged: (CardStatus? cardStatus) {
         if (cardStatus != null) {

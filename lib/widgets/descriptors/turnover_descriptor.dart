@@ -12,12 +12,12 @@ class TurnovernDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<Turnover?>(
       children: const {
-        Turnover.blocked: Text('Bloccata'),
+        Turnover.blocked: Text('Blocked'),
         Turnover.jackal: Text('Jackal'),
-        Turnover.kick: Text('Calcio'),
-        Turnover.knockOn: Text('Avanti'),
-        Turnover.robbed: Text('Rubata'),
-        Turnover.touch: Text('Touche'),
+        Turnover.kick: Text('Kick'),
+        Turnover.knockOn: Text('Knock on'),
+        Turnover.robbed: Text('Robbed'),
+        Turnover.touch: Text('Touch'),
       },
       onValueChanged: (Turnover? turnover) {
         if (turnover != null) {

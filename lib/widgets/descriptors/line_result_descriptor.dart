@@ -9,28 +9,14 @@ class LineResultnDescriptor extends StatelessWidget {
       {Key? key, required this.lineResult, required this.onLineResultChanged})
       : super(key: key);
 
-  // String _translateLineResult(LineResult lineResult) {
-  //   switch (lineResult) {
-  //     case LineResult.clean:
-  //       return "Pulita";
-  //     case LineResult.dirty:
-  //       return "Sporca";
-  //     case LineResult.lost:
-  //       return "Persa";
-  //     case LineResult.notStraight:
-  //       return "Storta";
-  //     default:
-  //       return 'Risultato';
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<LineResult?>(
       children: const {
-        LineResult.clean: Text("Pulita"),
-        LineResult.dirty: Text("Sporca"),
-        LineResult.lost: Text("Persa"),
-        LineResult.notStraight: Text("Storta"),
+        LineResult.clean: Text("Clean"),
+        LineResult.dirty: Text("Dirty"),
+        LineResult.lost: Text("Lost"),
+        LineResult.notStraight: Text("Not straight"),
       },
       onValueChanged: (LineResult? lineResult) {
         if (lineResult != null) {

@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.grey,
 
-        title: Text("test"),
+        title: Text(TeamType.team1.name + ' vs. ' + TeamType.team2.name),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         //create an appbar bottom to contain the stopwatchBar widget
@@ -105,14 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () => showDialog(
                           context: context,
                           builder: (ctx) => const SaveMatchDialog()),
-                      child: const Text('Salva partita'),
+                      child: const Text('Save game'),
                     ),
                     TextButton(
                         onPressed: () => showDialog(
                               context: context,
                               builder: (ctx) => const LoadMatchDialog(),
                             ),
-                        child: const Text("Carica partita"))
+                        child: const Text("Load game"))
                   ],
                 )
               ],
@@ -169,14 +169,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       context.read<AppState>().saveCsv();
                       Navigator.pop(context, true);
                     },
-                    child: const Text("Export csv file"))
+                    child: const Text("Export .csv file"))
               ],
             ),
             Expanded(child: EventsList()),
           ],
         ),
       ),
-      body: MainEventButtons(),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/grass-275986_1280.jpg'),
+              fit: BoxFit.cover,
+              opacity: 0.7),
+        ),
+        child: MainEventButtons(),
+      ),
     );
   }
 }

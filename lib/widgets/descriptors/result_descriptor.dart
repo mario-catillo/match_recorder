@@ -23,8 +23,8 @@ class ResultnDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<Result?>(
       children: const {
-        Result.won: Text("Vinta"),
-        Result.lost: Text("Persa"),
+        Result.won: Text("Win"),
+        Result.lost: Text("Lost"),
       },
       onValueChanged: (Result? result) {
         if (result != null) {

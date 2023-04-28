@@ -12,11 +12,11 @@ class PointsDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<Points?>(
       children: const {
-        Points.conversion2: Text('Trasformazione'),
+        Points.conversion2: Text('Conversion'),
         Points.drop3: Text('Drop'),
-        Points.penalty3: Text('Calcio Pun.'),
-        Points.try5: Text('Meta'),
-        Points.penaltyTry7: Text('Meta tecnica'),
+        Points.penalty3: Text('Penalty kick'),
+        Points.try5: Text('Try'),
+        Points.penaltyTry7: Text('Penalty try'),
       },
       onValueChanged: (Points? points) {
         if (points != null) {

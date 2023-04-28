@@ -21,7 +21,7 @@ class KickTypeDescriptor extends StatelessWidget {
         KickType.punt: Text('Punt'),
         KickType.chip: Text('Chip'),
         KickType.touche: Text('Touche'),
-        KickType.goal: Text('Goal'),
+        KickType.goal: Text('Place'),
       },
       onValueChanged: (KickType? kickType) {
         if (kickType != null) {

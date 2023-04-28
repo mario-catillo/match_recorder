@@ -13,8 +13,8 @@ class RestartTypenDescriptor extends StatelessWidget {
     return CupertinoSlidingSegmentedControl<RestartType?>(
       children: const {
         RestartType.kickoff: Text('Kick off'),
-        RestartType.drop22: Text('Drop 22'),
-        RestartType.dropingoal: Text('Drop Ingoal'),
+        RestartType.drop22: Text('22m Drop'),
+        RestartType.dropingoal: Text('Ingoal Drop'),
       },
       onValueChanged: (RestartType? restartType) {
         if (restartType != null) {

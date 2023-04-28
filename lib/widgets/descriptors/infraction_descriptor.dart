@@ -13,13 +13,13 @@ class InfractionnDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<Infraction?>(
       children: const {
-        Infraction.dirtyPlay: Text('Sporco'),
-        Infraction.ruckAttack: Text('Ruck Att'),
-        Infraction.ruckDefence: Text('Ruck Def'),
+        Infraction.dirtyPlay: Text('Foul play'),
+        Infraction.ruckAttack: Text('Ruck attack'),
+        Infraction.ruckDefence: Text('Ruck defence'),
         Infraction.maul: Text('Maul'),
-        Infraction.scrum: Text('Mischia chiusa'),
-        Infraction.offside: Text('Fuori gioco'),
-        Infraction.lineout: Text('Touche'),
+        Infraction.scrum: Text('Scrum'),
+        Infraction.offside: Text('Offside'),
+        Infraction.lineout: Text('Line-out'),
         Infraction.tenMeters: Text('+10'),
       },
       onValueChanged: (Infraction? infraction) {
@@ -31,6 +31,7 @@ class InfractionnDescriptor extends StatelessWidget {
     );
   }
 }
+
 
 
 

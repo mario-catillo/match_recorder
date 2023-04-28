@@ -12,9 +12,9 @@ class ProgressionDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<MovementProgression?>(
       children: const {
-        MovementProgression.negative: Text('Negativo'),
-        MovementProgression.neutral: Text('Neutro'),
-        MovementProgression.positive: Text('Positivo'),
+        MovementProgression.negative: Text('Negative'),
+        MovementProgression.neutral: Text('Neutral'),
+        MovementProgression.positive: Text('Positive'),
       },
       onValueChanged: (MovementProgression? progress) {
         if (progress != null) {
