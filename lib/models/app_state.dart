@@ -144,8 +144,33 @@ class AppState with ChangeNotifier implements Serializable {
   }
 
   void saveCsv() async {
-    String csv =
-        "ID,Time (h:min:sec),Time (Sec),Event Name,Position,Team,Player 1,Player 2,Restart / Kick off,Advance,Shoulder,Turnover,Infraction,Card,Kick,Goal kick,Result,Line Result,Line quantity,Line Position,Points,Break,Ruck speed,\n";
+    List<String> csvCols = [
+      "ID",
+      "Realtime",
+      "Time (h:min:sec)",
+      "Time (Sec)",
+      "Event Name",
+      "Position",
+      "Team",
+      "Player 1",
+      "Player 2",
+      "Restart / Kick off",
+      "Advance",
+      "Shoulder",
+      "Turnover",
+      "Infraction",
+      "Card",
+      "Kick",
+      "Goal kick",
+      "Result",
+      "Line Result",
+      "Line quantity",
+      "Line Position",
+      "Points",
+      "Break",
+      "Ruck speed",
+    ];
+    String csv = '${csvCols.join(',')}\n';
     int progressive = 1;
     events.forEach((element) {
       csv += "${element.toCsv(progressive, this)}\n";

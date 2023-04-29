@@ -11,6 +11,7 @@ abstract class BaseEvent implements Serializable {
   final Duration duration;
   final String name;
   final String uuid;
+  final DateTime timestamp = DateTime.now();
   Offset fieldPosition;
 
   TeamType teamType;
@@ -71,6 +72,7 @@ abstract class BaseEvent implements Serializable {
 
     String eventRow0 = [
       progressive.toString(),
+      timestamp.toIso8601String(),
       '${duration.inHours.toString().padLeft(2, '0')}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}',
       duration.inSeconds, // duration in seconds
       name, //event name
