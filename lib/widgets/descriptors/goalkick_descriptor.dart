@@ -14,14 +14,14 @@ class GoalKickDescriptor extends StatelessWidget {
       children: const {
         GoalKick.good: Text('Good'),
         GoalKick.failed: Text('Failed'),
-        // GoalKick.none: Text('None'),
+        GoalKick.none: Text('None'),
       },
       onValueChanged: (GoalKick? goalKick) {
         if (goalKick != null) {
           onGoalKickChanged(goalKick);
         }
       },
-      groupValue: goalKick,
+      groupValue: goalKick ?? GoalKick.none,
     );
   }
 }
