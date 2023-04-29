@@ -14,9 +14,9 @@ class TackleShouldernDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<TackleShoulder?>(
       children: const {
-        TackleShoulder.internal: Text('Interno'),
-        TackleShoulder.external: Text('Esterno'),
-        TackleShoulder.double: Text('Doble'),
+        TackleShoulder.internal: Text('Inside'),
+        TackleShoulder.external: Text('Outside'),
+        TackleShoulder.double: Text('Double'),
       },
       onValueChanged: (TackleShoulder? tackleShoulder) {
         if (tackleShoulder != null) {

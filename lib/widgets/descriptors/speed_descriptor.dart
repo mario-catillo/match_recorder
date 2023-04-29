@@ -12,8 +12,8 @@ class SpeedDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<Speed?>(
       children: const {
-        Speed.slow: Text('Lenta'),
-        Speed.fast: Text('Veloce'),
+        Speed.slow: Text('Quick'),
+        Speed.fast: Text('Slow'),
       },
       onValueChanged: (Speed? speed) {
         if (speed != null) {

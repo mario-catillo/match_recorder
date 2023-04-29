@@ -39,28 +39,29 @@ class MainEventButtons extends StatelessWidget {
     return Center(
       child: GridView.count(
         //6 columns if portrait, 8 if landscape
+        childAspectRatio: (80 / 66),
         crossAxisCount:
             MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
         shrinkWrap: true,
         children: [
+          // EventButton(
+          //   name: 'Tackle',
+          //   buttoncolor: Colors.green.shade800,
+          //   // icon: 'assets/icons/tackle.png',
+          //   onPressed: () => _onEventPressed(
+          //       context,
+          //       TackleEvent(
+          //           duration:
+          //               context.read<StopwatchState>().currentDuration.value)),
+          // ),
           MaterialButton(
-            onPressed: () => _onEventPressed(
-                context,
-                RestartEvent(
-                    duration:
-                        context.read<StopwatchState>().currentDuration.value)),
-            color: Colors.blue.shade400,
-            child: const Text('Kick off / Restart'),
-          ),
-          EventButton(
-            name: 'Tackle',
-            buttoncolor: Colors.green.shade800,
-            // icon: 'assets/icons/tackle.png',
             onPressed: () => _onEventPressed(
                 context,
                 TackleEvent(
                     duration:
                         context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.green.shade800,
+            child: const Text('Tackle'),
           ),
           MaterialButton(
             onPressed: () => _onEventPressed(
@@ -74,11 +75,11 @@ class MainEventButtons extends StatelessWidget {
           MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
-                MissedTacklenEvent(
+                RestartEvent(
                     duration:
                         context.read<StopwatchState>().currentDuration.value)),
-            color: Colors.red.shade300,
-            child: const Text('Missed Tackle'),
+            color: Colors.blue.shade400,
+            child: const Text('Kick off / Restart'),
           ),
           MaterialButton(
             onPressed: () => _onEventPressed(
@@ -89,16 +90,34 @@ class MainEventButtons extends StatelessWidget {
             color: Colors.green.shade600,
             child: const Text('Break'),
           ),
-          EventButton(
-              name: 'Kick',
-              // icon: 'assets/icons/kick.png',
-              onPressed: () => _onEventPressed(
-                  context,
-                  KickEvent(
-                      duration: context
-                          .read<StopwatchState>()
-                          .currentDuration
-                          .value))),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                MissedTacklenEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.red.shade300,
+            child: const Text('Missed Tackle'),
+          ),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                KickEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.grey.shade300,
+            child: const Text('Kick'),
+          ),
+          // EventButton(
+          //     name: 'Kick',
+          //     // icon: 'assets/icons/kick.png',
+          //     onPressed: () => _onEventPressed(
+          //         context,
+          //         KickEvent(
+          //             duration: context
+          //                 .read<StopwatchState>()
+          //                 .currentDuration
+          //                 .value))),
           MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
@@ -108,17 +127,55 @@ class MainEventButtons extends StatelessWidget {
             color: Colors.orange.shade400,
             child: const Text('Turnover (lost)'),
           ),
-          EventButton(
-              name: 'Infraction',
-              buttoncolor: Colors.red.shade600,
-              // icon: 'assets/icons/referee.png',
-              onPressed: () => _onEventPressed(
-                  context,
-                  InfractionEvent(
-                      duration: context
-                          .read<StopwatchState>()
-                          .currentDuration
-                          .value))),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                InfractionEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.red.shade400,
+            child: const Text('Infraction'),
+          ),
+          // EventButton(
+          //     name: 'Infraction',
+          //     buttoncolor: Colors.red.shade600,
+          //     // icon: 'assets/icons/referee.png',
+          //     onPressed: () => _onEventPressed(
+          //         context,
+          //         InfractionEvent(
+          //             duration: context
+          //                 .read<StopwatchState>()
+          //                 .currentDuration
+          //                 .value))),
+          // EventButton(
+          //     name: 'Points',
+          //     buttoncolor: Colors.blue.shade800,
+          //     // icon: 'assets/icons/try.png',
+          //     onPressed: () => _onEventPressed(
+          //         context,
+          //         PointsEvent(
+          //             duration: context
+          //                 .read<StopwatchState>()
+          //                 .currentDuration
+          //                 .value))),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                PointsEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.blue.shade200,
+            child: const Text('Points'),
+          ),
+          MaterialButton(
+            onPressed: () => _onEventPressed(
+                context,
+                MaulEvent(
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.brown.shade200,
+            child: const Text('Maul'),
+          ),
           MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
@@ -128,38 +185,26 @@ class MainEventButtons extends StatelessWidget {
             color: Colors.blueAccent.shade400,
             child: const Text('Lineout'),
           ),
-          EventButton(
-              name: 'Maul',
-              buttoncolor: Colors.lightBlue.shade400,
-              onPressed: () => _onEventPressed(
-                  context,
-                  MaulEvent(
-                      duration: context
-                          .read<StopwatchState>()
-                          .currentDuration
-                          .value))),
-          EventButton(
-            // icon: 'assets/icons/scrum.png',
-            buttoncolor: Colors.blue.shade700,
+          MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
                 ScrumEvent(
-                  duration:
-                      context.read<StopwatchState>().currentDuration.value,
-                )),
-            name: 'Scrum',
+                    duration:
+                        context.read<StopwatchState>().currentDuration.value)),
+            color: Colors.orange.shade400,
+            child: const Text('Scrum'),
           ),
-          EventButton(
-              name: 'Points',
-              buttoncolor: Colors.blue.shade800,
-              // icon: 'assets/icons/try.png',
-              onPressed: () => _onEventPressed(
-                  context,
-                  PointsEvent(
-                      duration: context
-                          .read<StopwatchState>()
-                          .currentDuration
-                          .value))),
+          // EventButton(
+          //   // icon: 'assets/icons/scrum.png',
+          //   buttoncolor: Colors.blue.shade700,
+          //   onPressed: () => _onEventPressed(
+          //       context,
+          //       ScrumEvent(
+          //         duration:
+          //             context.read<StopwatchState>().currentDuration.value,
+          //       )),
+          //   name: 'Scrum',
+          // ),
         ],
       ),
     );

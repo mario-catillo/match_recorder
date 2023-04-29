@@ -14,12 +14,12 @@ class LinePositionnDescriptor extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<LinePosition?>(
       children: const {
-        LinePosition.A: Text('0-30'),
-        LinePosition.D: Text('15,5'),
-        LinePosition.B: Text('30-60'),
-        LinePosition.E: Text('45,5'),
-        LinePosition.C: Text('60-90'),
-        LinePosition.other: Text('Altro'),
+        LinePosition.A: Text('1st'),
+        LinePosition.D: Text('1st+'),
+        LinePosition.B: Text('2nd'),
+        LinePosition.E: Text('2nd+'),
+        LinePosition.C: Text('3rd'),
+        LinePosition.other: Text('Other'),
       },
       onValueChanged: (LinePosition? linePosition) {
         if (linePosition != null) {

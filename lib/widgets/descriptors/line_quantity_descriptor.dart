@@ -11,27 +11,6 @@ class LineQuantitynDescriptor extends StatelessWidget {
       required this.onLineQuantityChanged})
       : super(key: key);
 
-  // String _translateLineQuantity(LineQuantity lineQuantity) {
-  //   switch (lineQuantity) {
-  //     case LineQuantity.two:
-  //       return "2";
-  //     case LineQuantity.three:
-  //       return "3";
-  //     case LineQuantity.four:
-  //       return "4";
-  //     case LineQuantity.five:
-  //       return "5";
-  //     case LineQuantity.six:
-  //       return "6";
-  //     case LineQuantity.seven:
-  //       return "7";
-  //     case LineQuantity.other:
-  //       return "Altro";
-  //     default:
-  //       return 'Quantità';
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl<LineQuantity?>(
