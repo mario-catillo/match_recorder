@@ -5,6 +5,7 @@ import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/team_page.dart';
 import 'package:match_recorder/widgets/YellowCardPlayer.dart';
+import 'package:match_recorder/widgets/cards/cards_header.dart';
 import 'package:match_recorder/widgets/events_list.dart';
 import 'package:match_recorder/widgets/game_phase_switch.dart';
 import 'package:match_recorder/widgets/match_timer.dart';
@@ -83,7 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.grey,
 
-        title: Text(TeamType.team1.name + ' vs. ' + TeamType.team2.name),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(TeamType.team1.name + ' vs. ' + TeamType.team2.name),
+            CardsHeader()
+          ],
+        ),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         //create an appbar bottom to contain the stopwatchBar widget
