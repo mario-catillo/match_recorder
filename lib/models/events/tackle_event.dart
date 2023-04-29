@@ -46,12 +46,12 @@ class TackleEvent extends BaseEvent {
   }
 
   @override
-  void setPlayer(String key, Player? value) {
+  void setPlayer(String key, Player? player) {
     if (key == 'tacklePlayer1') {
-      tacklePlayer1 = value;
+      tacklePlayer1 = player;
     }
     if (key == 'tacklePlayer2') {
-      tacklePlayer2 = value;
+      tacklePlayer2 = player;
     }
   }
 

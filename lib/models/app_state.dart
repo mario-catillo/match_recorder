@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/events/infraction_event.dart';
+import 'package:match_recorder/models/events/swap_event.dart';
 import 'package:match_recorder/models/events/unknown_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/serializable.dart';
@@ -36,6 +37,19 @@ class AppState with ChangeNotifier implements Serializable {
           event.cardStatus == CardStatus.yellow) {
         yellowCardPlayers[event.infractionPlayer!] = event.duration;
       }
+
+      if (event is SwapEvent) {
+        //Swap the player1 with player2 in the event in the relative team
+        if (event.player1 != null && event.player2 != null) {
+          //swap the players numbers
+          String temp = event.player1!.number;
+          event.player1!.number = event.player2!.number;
+          event.player2!.number = temp;
+        } else {
+          //remove the event
+          events.remove(event);
+        }
+      }
     }
     notifyListeners();
   }
@@ -47,6 +61,17 @@ class AppState with ChangeNotifier implements Serializable {
 
   void dropEvent(BaseEvent event) {
     events.removeWhere((element) => element.uuid == event.uuid);
+
+    if (event is SwapEvent) {
+      //Swap the player1 with player2 in the event in the relative team
+      if (event.player1 != null && event.player2 != null) {
+        //swap the players numbers
+        String temp = event.player1!.number;
+        event.player1!.number = event.player2!.number;
+        event.player2!.number = temp;
+      }
+    }
+
     notifyListeners();
   }
 

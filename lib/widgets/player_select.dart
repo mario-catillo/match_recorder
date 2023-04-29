@@ -140,8 +140,36 @@ class _PlayerSelectPainter extends CustomPainter {
         col = 11;
         break;
       case "15":
+        row = 9;
+        col = 6;
+        break;
+      case "16":
+        row = 11;
+        col = 1;
+        break;
+      case "17":
+        row = 11;
+        col = 2;
+        break;
+      case "18":
+        row = 11;
+        col = 3;
+        break;
+      case "19":
+        row = 11;
+        col = 4;
+        break;
+      case "20":
+        row = 11;
+        col = 5;
+        break;
+      case "21":
         row = 11;
         col = 6;
+        break;
+      case "22":
+        row = 11;
+        col = 7;
         break;
       default:
         row = -1;

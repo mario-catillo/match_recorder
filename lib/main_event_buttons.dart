@@ -8,6 +8,7 @@ import 'package:match_recorder/models/events/kick_event.dart';
 import 'package:match_recorder/models/events/restart_event.dart';
 import 'package:match_recorder/models/events/ruck_event.dart';
 import 'package:match_recorder/models/events/scrum_event.dart';
+import 'package:match_recorder/models/events/swap_event.dart';
 import 'package:match_recorder/models/events/turnover_event.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/models/events/tackle_event.dart';
@@ -194,17 +195,16 @@ class MainEventButtons extends StatelessWidget {
             color: Colors.orange.shade400,
             child: const Text('Scrum'),
           ),
-          // EventButton(
-          //   // icon: 'assets/icons/scrum.png',
-          //   buttoncolor: Colors.blue.shade700,
-          //   onPressed: () => _onEventPressed(
-          //       context,
-          //       ScrumEvent(
-          //         duration:
-          //             context.read<StopwatchState>().currentDuration.value,
-          //       )),
-          //   name: 'Scrum',
-          // ),
+          MaterialButton(
+              child: const Text('Swap'),
+              color: Colors.grey.shade300,
+              onPressed: () => _onEventPressed(
+                  context,
+                  SwapEvent(
+                      duration: context
+                          .read<StopwatchState>()
+                          .currentDuration
+                          .value)))
         ],
       ),
     );

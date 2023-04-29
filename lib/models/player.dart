@@ -4,7 +4,7 @@ import 'package:match_recorder/models/serializable.dart';
 
 class Player implements Serializable {
   final String name;
-  final String number;
+  String number;
 
   Player({required this.name, required this.number});
 
