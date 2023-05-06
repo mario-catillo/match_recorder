@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
-import 'package:match_recorder/team_page.dart';
 
 class InfractionEvent extends BaseEvent {
   Infraction infraction = Infraction.dirtyPlay;
@@ -73,10 +72,5 @@ class InfractionEvent extends BaseEvent {
     return jsonEncode(json);
   }
 
-  @override
-  InfractionEvent.fromJson(String json) : super.fromJson(json) {
-    infraction = Infraction.values[jsonDecode(json)['infraction']];
-    cardStatus = CardStatus.values[jsonDecode(json)['cardStatus']];
-    infractionPlayer = Player.fromJson(jsonDecode(json)['infractionPlayer']);
-  }
+  InfractionEvent.fromJson(String json) : super.fromJson(json);
 }

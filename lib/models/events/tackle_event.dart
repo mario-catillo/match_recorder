@@ -65,5 +65,7 @@ class TackleEvent extends BaseEvent {
     }
     throw UnimplementedError();
   }
+
+  TackleEvent.fromJson(String json) : super.fromJson(json);
 }
 //Time;Team;Player;Shoulder;Progress

@@ -4,10 +4,9 @@ import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
 
 class LineoutEvent extends BaseEvent {
-  final String quantity;
   AppState? appState;
 
-  LineoutEvent(this.quantity, {required Duration duration})
+  LineoutEvent({required Duration duration})
       : super(name: 'Lineout', duration: duration);
 
   LineResult lineResult = LineResult.clean;
@@ -90,5 +89,7 @@ class LineoutEvent extends BaseEvent {
     }
     return null;
   }
+
+  LineoutEvent.fromJson(String json) : super.fromJson(json);
 }
 //Time;Team;Player(Catch);Player(Throw);Lineposition;Quantity;Zone;Lineresult;Linename

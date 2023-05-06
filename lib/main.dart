@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:match_recorder/main_event_buttons.dart';
 import 'package:match_recorder/models/app_state.dart';
-import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/stopwatch_state.dart';
 import 'package:match_recorder/team_page.dart';
-import 'package:match_recorder/widgets/YellowCardPlayer.dart';
 import 'package:match_recorder/widgets/cards/cards_header.dart';
 import 'package:match_recorder/widgets/events_list.dart';
 import 'package:match_recorder/widgets/game_phase_switch.dart';
 import 'package:match_recorder/widgets/match_timer.dart';
-import 'package:match_recorder/widgets/misc/value_listenable_builder2.dart';
 import 'package:match_recorder/widgets/saves/load_match_dialog.dart';
 import 'package:match_recorder/widgets/saves/save_match_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:match_recorder/widgets/stats/player_stats.dart';
 import 'package:match_recorder/team_stats_page.dart';
 
 void main() {
@@ -87,15 +81,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(TeamType.team1.name + ' vs. ' + TeamType.team2.name),
-            CardsHeader()
+            Text('${TeamType.team1.name} vs. ${TeamType.team2.name}'),
+            const CardsHeader()
           ],
         ),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         //create an appbar bottom to contain the stopwatchBar widget
-        bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(70), child: StopwatchBar()),
+        bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(70), child: StopwatchBar()),
       ),
       //a custom bottom navigation bar to contain the game phase switch and the match timer
 
@@ -105,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
             DrawerHeader(
                 child: Column(
               children: [
-                Text('Match Recorder'),
+                const Text('Match Recorder'),
                 Row(
                   children: [
                     TextButton(
@@ -134,8 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => const TeamPage(
                                   teamType: TeamType.team1,
                                 ))),
-                    child: Text("Team 1")),
-                SizedBox(width: 20),
+                    child: const Text("Team 1")),
+                const SizedBox(width: 20),
                 ElevatedButton(
                     onPressed: () => Navigator.push(
                         context,
@@ -143,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => const TeamPage(
                                   teamType: TeamType.team2,
                                 ))),
-                    child: Text("Team 2")),
+                    child: const Text("Team 2")),
               ],
             ),
             Row(
@@ -156,8 +150,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => TeamStatsPage(
                                 // teamType2: TeamType.team1,
                                 ))),
-                    child: Text("Team 1 Stats")),
-                SizedBox(width: 20),
+                    child: const Text("Team 1 Stats")),
+                const SizedBox(width: 20),
                 ElevatedButton(
                     onPressed: () => Navigator.push(
                         context,
@@ -165,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => TeamStatsPage(
                                 // teamType2: TeamType.team2,
                                 ))),
-                    child: Text("Team 2 Stats")),
+                    child: const Text("Team 2 Stats")),
               ],
             ),
             Row(
@@ -184,13 +178,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/grass-275986_1280.jpg'),
               fit: BoxFit.cover,
               opacity: 0.7),
         ),
-        child: MainEventButtons(),
+        child: const MainEventButtons(),
       ),
     );
   }

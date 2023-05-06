@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/event_description_view.dart';
-import 'package:match_recorder/models/app_state.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/events/infraction_event.dart';
 import 'package:match_recorder/models/events/kick_event.dart';
@@ -17,8 +15,6 @@ import 'package:match_recorder/models/events/points_event.dart';
 import 'package:match_recorder/models/events/missed_tackle_event.dart';
 import 'package:match_recorder/models/events/break_event.dart';
 import 'package:match_recorder/models/events/maul_event.dart';
-import 'package:match_recorder/team_page.dart';
-import 'package:match_recorder/widgets/event_button.dart';
 import 'package:provider/provider.dart';
 
 class MainEventButtons extends StatelessWidget {
@@ -85,7 +81,7 @@ class MainEventButtons extends StatelessWidget {
           MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
-                BreakEnEvent(
+                BreakEvent(
                     duration:
                         context.read<StopwatchState>().currentDuration.value)),
             color: Colors.green.shade600,
@@ -180,7 +176,7 @@ class MainEventButtons extends StatelessWidget {
           MaterialButton(
             onPressed: () => _onEventPressed(
                 context,
-                LineoutEvent("5",
+                LineoutEvent(
                     duration:
                         context.read<StopwatchState>().currentDuration.value)),
             color: Colors.blueAccent.shade400,
@@ -196,7 +192,6 @@ class MainEventButtons extends StatelessWidget {
             child: const Text('Scrum'),
           ),
           MaterialButton(
-              child: const Text('Swap'),
               color: Colors.grey.shade300,
               onPressed: () => _onEventPressed(
                   context,
@@ -204,7 +199,8 @@ class MainEventButtons extends StatelessWidget {
                       duration: context
                           .read<StopwatchState>()
                           .currentDuration
-                          .value)))
+                          .value)),
+              child: const Text('Swap'))
         ],
       ),
     );

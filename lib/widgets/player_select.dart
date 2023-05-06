@@ -15,24 +15,22 @@ class PlayerSelect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return GestureDetector(
-            child: SizedBox(
-              width: constraints.maxWidth,
-              height: constraints.maxWidth,
-              child: CustomPaint(
-                painter: _PlayerSelectPainter(
-                    players: players,
-                    onPlayerTap: onPlayerTap,
-                    alreadySelectedPlayers: alreadySelectedPlayers,
-                    selectedPlayer: selectedPlayer),
-              ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return GestureDetector(
+          child: SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxWidth * 0.55,
+            child: CustomPaint(
+              painter: _PlayerSelectPainter(
+                  players: players,
+                  onPlayerTap: onPlayerTap,
+                  alreadySelectedPlayers: alreadySelectedPlayers,
+                  selectedPlayer: selectedPlayer),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

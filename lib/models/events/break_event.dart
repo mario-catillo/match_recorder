@@ -2,9 +2,9 @@ import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
 import 'package:match_recorder/models/player.dart';
 
-class BreakEnEvent extends BaseEvent {
+class BreakEvent extends BaseEvent {
   BreakType breaktype = BreakType.individual;
-  BreakEnEvent({required Duration duration})
+  BreakEvent({required Duration duration})
       : super(name: 'Break', duration: duration);
   Player? breakPlayer;
 
@@ -50,4 +50,6 @@ class BreakEnEvent extends BaseEvent {
     }
     return null;
   }
+
+  BreakEvent.fromJson(String json) : super.fromJson(json);
 }

@@ -51,4 +51,6 @@ class RuckEvent extends BaseEvent {
   Player? getPlayer(String key) {
     throw UnimplementedError();
   }
+
+  RuckEvent.fromJson(String json) : super.fromJson(json);
 }

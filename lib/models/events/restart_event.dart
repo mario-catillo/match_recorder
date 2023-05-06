@@ -47,4 +47,6 @@ class RestartEvent extends BaseEvent {
   Player? getPlayer(String key) {
     throw UnimplementedError();
   }
+
+  RestartEvent.fromJson(String json) : super.fromJson(json);
 }

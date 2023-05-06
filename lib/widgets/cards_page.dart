@@ -10,21 +10,18 @@ class CardsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Cards'),
       ),
-      body: Center(
-        child: Consumer<AppState>(builder: (ctx, appState, child) {
-          return Expanded(
-              child: ListView.builder(
-            itemBuilder: (ctx, index) {
-              final player =
-                  appState.yellowCardPlayers.entries.toList()[index].key;
-              final infractionTime = appState.yellowCardPlayers[player]!;
-              return YellowCardPlayer(
-                  player: player, infractionTime: infractionTime);
-            },
-            itemCount: appState.yellowCardPlayers.entries.length,
-          ));
-        }),
-      ),
+      body: Consumer<AppState>(builder: (ctx, appState, child) {
+        return ListView.builder(
+          itemBuilder: (ctx, index) {
+            final player =
+                appState.yellowCardPlayers.entries.toList()[index].key;
+            final infractionTime = appState.yellowCardPlayers[player]!;
+            return YellowCardPlayer(
+                player: player, infractionTime: infractionTime);
+          },
+          itemCount: appState.yellowCardPlayers.entries.length,
+        );
+      }),
     );
   }
 }

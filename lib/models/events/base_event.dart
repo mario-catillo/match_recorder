@@ -54,17 +54,166 @@ abstract class BaseEvent implements Serializable {
       'uuid': uuid,
       'fieldPosition': {"dx": fieldPosition.dx, "dy": fieldPosition.dy},
       'teamType': teamType.index,
+      'players':
+          getPlayers().map((key, value) => MapEntry(key, value?.toJson())),
+      'descriptors': getDescriptors().map((e) {
+        int? descriptorIndex;
+        switch (e) {
+          case Descriptors.restartType:
+            descriptorIndex = getDescriptorValue<RestartType>()?.index;
+            break;
+          case Descriptors.movementProgression:
+            descriptorIndex = getDescriptorValue<MovementProgression>()?.index;
+            break;
+          case Descriptors.tackleShoulder:
+            descriptorIndex = getDescriptorValue<TackleShoulder>()?.index;
+            break;
+          case Descriptors.turnover:
+            descriptorIndex = getDescriptorValue<Turnover>()?.index;
+            break;
+          case Descriptors.infraction:
+            descriptorIndex = getDescriptorValue<Infraction>()?.index;
+            break;
+          case Descriptors.cardStatus:
+            descriptorIndex = getDescriptorValue<CardStatus>()?.index;
+            break;
+          case Descriptors.kickType:
+            descriptorIndex = getDescriptorValue<KickType>()?.index;
+            break;
+          case Descriptors.goalKick:
+            descriptorIndex = getDescriptorValue<GoalKick>()?.index;
+            break;
+          case Descriptors.result:
+            descriptorIndex = getDescriptorValue<Result>()?.index;
+            break;
+          case Descriptors.lineResult:
+            descriptorIndex = getDescriptorValue<LineResult>()?.index;
+            break;
+          case Descriptors.lineQuantity:
+            descriptorIndex = getDescriptorValue<LineQuantity>()?.index;
+            break;
+          case Descriptors.linePosition:
+            descriptorIndex = getDescriptorValue<LinePosition>()?.index;
+            break;
+          case Descriptors.points:
+            descriptorIndex = getDescriptorValue<Points>()?.index;
+            break;
+          case Descriptors.breakType:
+            descriptorIndex = getDescriptorValue<BreakType>()?.index;
+            break;
+          case Descriptors.speed:
+            descriptorIndex = getDescriptorValue<Speed>()?.index;
+            break;
+        }
+        return {
+          'descriptor': e.index,
+          'value': descriptorIndex,
+        };
+      }).toList(),
     });
   }
 
   @override
   BaseEvent.fromJson(String json)
-      : duration = Duration(milliseconds: jsonDecode(json)['duration']),
+      : uuid = jsonDecode(json)['uuid'],
+        name = jsonDecode(json)['name'],
+        duration = Duration(milliseconds: jsonDecode(json)['duration']),
         fieldPosition = Offset(jsonDecode(json)['fieldPosition']['dx'],
             jsonDecode(json)['fieldPosition']['dy']),
-        name = jsonDecode(json)['name'],
-        uuid = jsonDecode(json)['uuid'],
-        teamType = TeamType.values[jsonDecode(json)['teamType']];
+        teamType = TeamType.values[jsonDecode(json)['teamType']] {
+    jsonDecode(json)['players'].forEach((key, value) {
+      if (value != null) {
+        setPlayer(key, Player.fromJson((value)));
+      }
+    });
+    jsonDecode(json)['descriptors'].forEach((element) {
+      Descriptors descriptor = Descriptors.values[element['descriptor']];
+      int? descriptorValue = element['value'];
+      switch (descriptor) {
+        case Descriptors.restartType:
+          if (descriptorValue != null) {
+            setDescriptorValue<RestartType>(
+                RestartType.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.movementProgression:
+          if (descriptorValue != null) {
+            setDescriptorValue<MovementProgression>(
+                MovementProgression.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.tackleShoulder:
+          if (descriptorValue != null) {
+            setDescriptorValue<TackleShoulder>(
+                TackleShoulder.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.turnover:
+          if (descriptorValue != null) {
+            setDescriptorValue<Turnover>(Turnover.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.infraction:
+          if (descriptorValue != null) {
+            setDescriptorValue<Infraction>(Infraction.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.cardStatus:
+          if (descriptorValue != null) {
+            setDescriptorValue<CardStatus>(CardStatus.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.kickType:
+          if (descriptorValue != null) {
+            setDescriptorValue<KickType>(KickType.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.goalKick:
+          if (descriptorValue != null) {
+            setDescriptorValue<GoalKick>(GoalKick.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.result:
+          if (descriptorValue != null) {
+            setDescriptorValue<Result>(Result.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.lineResult:
+          if (descriptorValue != null) {
+            setDescriptorValue<LineResult>(LineResult.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.lineQuantity:
+          if (descriptorValue != null) {
+            setDescriptorValue<LineQuantity>(
+                LineQuantity.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.linePosition:
+          if (descriptorValue != null) {
+            setDescriptorValue<LinePosition>(
+                LinePosition.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.points:
+          if (descriptorValue != null) {
+            setDescriptorValue<Points>(Points.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.breakType:
+          if (descriptorValue != null) {
+            setDescriptorValue<BreakType>(BreakType.values[descriptorValue]);
+          }
+          break;
+        case Descriptors.speed:
+          if (descriptorValue != null) {
+            setDescriptorValue<Speed>(Speed.values[descriptorValue]);
+          }
+          break;
+      }
+      setDescriptorValue(element);
+    });
+  }
 
 // save a simple csv to document directory
   String toCsv(int progressive, AppState appState) {
@@ -76,15 +225,15 @@ abstract class BaseEvent implements Serializable {
       '${duration.inHours.toString().padLeft(2, '0')}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}',
       duration.inSeconds, // duration in seconds
       name, //event name
-      'x-y', //field position
+      "${fieldPosition.dx} - ${fieldPosition.dy}", //field position
       appState.getTeam(teamType).name, // team name
       // getPlayers().values.first?.name ?? '-', //Player 1
       // getPlayers().values.elementAt(1)?.name ?? '-', // Player 2
       getPlayers().values.isNotEmpty
           ? getPlayers().values.first?.name ?? ' '
           : ' ', //Player 1
-      getPlayers().values.isNotEmpty
-          ? getPlayers().values.first?.name ?? ' '
+      getPlayers().values.length > 1
+          ? getPlayers().values.elementAt(1)?.name ?? ' '
           : ' ', //Player 2
       getDescriptorValue<RestartType>().toString().split('.').last,
       getDescriptorValue<MovementProgression>().toString().split('.').last,

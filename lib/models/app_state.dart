@@ -1,14 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer' as Developer;
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:match_recorder/enums/descriptors.dart';
 import 'package:match_recorder/models/events/base_event.dart';
+import 'package:match_recorder/models/events/break_event.dart';
 import 'package:match_recorder/models/events/infraction_event.dart';
+import 'package:match_recorder/models/events/kick_event.dart';
+import 'package:match_recorder/models/events/lineout_event.dart';
+import 'package:match_recorder/models/events/maul_event.dart';
+import 'package:match_recorder/models/events/missed_tackle_event.dart';
+import 'package:match_recorder/models/events/points_event.dart';
+import 'package:match_recorder/models/events/restart_event.dart';
+import 'package:match_recorder/models/events/ruck_event.dart';
+import 'package:match_recorder/models/events/scrum_event.dart';
 import 'package:match_recorder/models/events/swap_event.dart';
+import 'package:match_recorder/models/events/tackle_event.dart';
+import 'package:match_recorder/models/events/turnover_event.dart';
 import 'package:match_recorder/models/events/unknown_event.dart';
 import 'package:match_recorder/models/player.dart';
 import 'package:match_recorder/models/serializable.dart';
@@ -155,11 +164,33 @@ class AppState with ChangeNotifier implements Serializable {
     team2 = Team.fromJson(map['team2']);
     events = (map['events'])
         .map((e) {
-          debugPrint(e.toString());
-          //unserialize type from e which is a MapEntry
           switch (e['type']) {
+            case 'BreakEvent':
+              return BreakEvent.fromJson(e['event']);
             case 'InfractionEvent':
               return InfractionEvent.fromJson(e['event']);
+            case 'KickEvent':
+              return KickEvent.fromJson(e['event']);
+            case 'LineoutEvent':
+              return LineoutEvent.fromJson(e['event']);
+            case 'MaulEvent':
+              return MaulEvent.fromJson(e['event']);
+            case 'MissedTackleEvent':
+              return MissedTacklenEvent.fromJson(e['event']);
+            case 'PointsEvent':
+              return PointsEvent.fromJson(e['event']);
+            case 'RestartEvent':
+              return RestartEvent.fromJson(e['event']);
+            case 'RuckEvent':
+              return RuckEvent.fromJson(e['event']);
+            case 'SwapEvent':
+              return SwapEvent.fromJson(e['event']);
+            case 'ScrumEvent':
+              return ScrumEvent.fromJson(e['event']);
+            case 'TackleEvent':
+              return TackleEvent.fromJson(e['event']);
+            case 'TurnoverEvent':
+              return TurnoverEvent.fromJson(e['event']);
             default:
               return UnknownEvent.fromJson(e['event']);
           }
@@ -197,10 +228,10 @@ class AppState with ChangeNotifier implements Serializable {
     ];
     String csv = '${csvCols.join(',')}\n';
     int progressive = 1;
-    events.forEach((element) {
+    for (var element in events) {
       csv += "${element.toCsv(progressive, this)}\n";
       progressive++;
-    });
+    }
 
     final Directory directory = await getApplicationDocumentsDirectory();
     final File file = File('${directory.path}/match.csv');

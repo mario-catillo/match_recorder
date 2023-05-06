@@ -49,4 +49,6 @@ class MissedTacklenEvent extends BaseEvent {
     }
     return null;
   }
+
+  MissedTacklenEvent.fromJson(String json) : super.fromJson(json);
 }

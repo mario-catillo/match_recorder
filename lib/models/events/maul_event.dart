@@ -48,4 +48,6 @@ class MaulEvent extends BaseEvent {
   Player? getPlayer(String key) {
     throw UnimplementedError();
   }
+
+  MaulEvent.fromJson(String json) : super.fromJson(json);
 }

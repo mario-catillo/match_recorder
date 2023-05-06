@@ -50,4 +50,6 @@ class TurnoverEvent extends BaseEvent {
     }
     return null;
   }
+
+  TurnoverEvent.fromJson(String json) : super.fromJson(json);
 }

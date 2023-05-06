@@ -54,4 +54,6 @@ class ScrumEvent extends BaseEvent {
   Player? getPlayer(String key) {
     throw UnimplementedError();
   }
+
+  ScrumEvent.fromJson(String json) : super.fromJson(json);
 }

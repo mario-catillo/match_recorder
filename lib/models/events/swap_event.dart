@@ -54,4 +54,6 @@ class SwapEvent extends BaseEvent {
 
   @override
   setDescriptorValue<T>(T value) {}
+
+  SwapEvent.fromJson(String json) : super.fromJson(json);
 }

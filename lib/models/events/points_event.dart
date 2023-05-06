@@ -49,4 +49,6 @@ class PointsEvent extends BaseEvent {
     }
     return null;
   }
+
+  PointsEvent.fromJson(String json) : super.fromJson(json);
 }
