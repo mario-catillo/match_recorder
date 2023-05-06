@@ -199,7 +199,7 @@ class AppState with ChangeNotifier implements Serializable {
         .cast<BaseEvent>();
   }
 
-  void saveCsv() async {
+  Future<void> saveCsv(String name) async {
     List<String> csvCols = [
       "ID",
       "Realtime",
@@ -234,7 +234,7 @@ class AppState with ChangeNotifier implements Serializable {
     }
 
     final Directory directory = await getApplicationDocumentsDirectory();
-    final File file = File('${directory.path}/match.csv');
+    final File file = File('${directory.path}/$name.csv');
     file.writeAsString(csv);
   }
 }
