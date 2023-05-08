@@ -16,9 +16,9 @@ class GamePhaseSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<GameStatus, String> gameStatusMap = {
-      GameStatus.attack: "Attacco",
-      GameStatus.defense: "Difesa",
-      GameStatus.nullTime: "Fermo"
+      GameStatus.attack: "Attack",
+      GameStatus.defense: "Defence",
+      GameStatus.nullTime: "Stopped"
     };
     Map<GameStatus, MaterialColor> gameStatusColor = {
       GameStatus.attack: Colors.green,
